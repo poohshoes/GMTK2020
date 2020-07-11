@@ -152,36 +152,26 @@ __meta__ = {
 position = Vector2( 570.686, 320.528 )
 region_name = "Superpotamia"
 region_id = 0
-starting_population = null
-starting_happiness = null
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 511.457, 748.472 )
 region_name = "Gibbinz"
 region_id = 1
-starting_population = null
-starting_happiness = null
 
 [node name="RegionC" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 898.211, 541.035 )
 region_name = "Galbarta"
 region_id = 2
-starting_population = null
-starting_happiness = null
 
 [node name="RegionD" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1182.03, 725.381 )
 region_name = "South East Economic Region"
 region_id = 3
-starting_population = null
-starting_happiness = null
 
 [node name="RegionE" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1237.8, 338.496 )
 region_name = "Farlandia"
 region_id = 4
-starting_population = null
-starting_happiness = null
 
 [node name="EndTurnButton" type="Button" parent="."]
 margin_left = 70.628

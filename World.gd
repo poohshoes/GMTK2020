@@ -55,7 +55,6 @@ func setup_region_jobs(region):
 	region.regionJobs = regionJob
 	regionJobs.append(regionJob)
 	regionJob.setup(region.region_id)
-<<<<<<< HEAD
 
 func check_game_state():
 	pass # Check if game is over
@@ -70,7 +69,3 @@ func check_events():
 
 func show_message(text):
 	$MessagePanel/MarginContainer2/MessageLabel.show_message(text)
-=======
-	
-	#$ResourcesPanel.move_child(self, get_child_count())
->>>>>>> 0439b276d17033b0219ed0da43d14765f23a15a8
