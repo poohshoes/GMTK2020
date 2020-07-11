@@ -1,30 +1,40 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Resources/zoom.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/RegionButton.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/HappinessLabel.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/PotatoesLabel.gd" type="Script" id=4]
 
+[sub_resource type="DynamicFontData" id=3]
+font_path = "res://Font/EscapeTypewriterC-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = SubResource( 3 )
+
 [node name="RegionButton" type="Button"]
-margin_left = -1.02759
-margin_top = -0.583923
-margin_right = 134.972
-margin_bottom = 82.4161
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 261.0
+margin_bottom = 82.0
 mouse_default_cursor_shape = 2
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.937255, 0.839216, 0, 1 )
 text = "[Name]"
 icon = ExtResource( 1 )
 flat = true
+clip_text = true
+align = 0
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HappinessLabel" type="Label" parent="."]
-margin_left = 9.0
-margin_top = 77.0
-margin_right = 72.0
-margin_bottom = 91.0
+margin_left = 13.5075
+margin_top = 108.319
+margin_right = 113.507
+margin_bottom = 122.319
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "happiness label"
 script = ExtResource( 3 )
@@ -33,10 +43,10 @@ __meta__ = {
 }
 
 [node name="PotatoesLabel" type="Label" parent="."]
-margin_left = 14.1422
-margin_top = 91.9239
-margin_right = 90.1422
-margin_bottom = 105.924
+margin_left = 18.6497
+margin_top = 123.243
+margin_right = 94.6497
+margin_bottom = 137.243
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "potato label"
 script = ExtResource( 4 )

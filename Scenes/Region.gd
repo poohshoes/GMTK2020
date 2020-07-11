@@ -4,6 +4,9 @@ const FEE_HAPPY_FACTOR = -1.2
 const POTATO_HAPPY_FACTOR = 1.0
 const POTATO_BUY_PRICE = 15
 const POTATO_SELL_PRICE = 10
+const L = 1.0
+const K = 1.0 # This probably needs to be moved closer to 0.1
+const X0 = 0.0
 
 const FARMER_SALARY = 10
 const FEE_COLLECTOR_SALARY = 20
@@ -51,6 +54,7 @@ func tick(imports, exports):
 	
 	# Update potato production
 	dS = population # Start with one potato produced per person
+	
 	# Some way to have workers improve potatoes
 	dS += imports - exports # Adjust by net flow
 	
@@ -62,8 +66,12 @@ func tick(imports, exports):
 	dM -= numPotatoFarmers * FARMER_SALARY + numTaxCollectors * FEE_COLLECTOR_SALARY + numWorkers * WORKER_SALARY
 	
 	# Calculate happiness
-	dH = FEE_HAPPY_FACTOR * feeRate + POTATO_HAPPY_FACTOR * dS
-
+	dH = FEE_HAPPY_FACTOR * feeRate + POTATO_HAPPY_FACTOR * (dS / population)
+	
+	# Apply a normalization to make it harder to succeed
+	dH = L/(1+exp(-K * (X0 - dH)))
+	
+	happiness = round(happiness + dH)
 	$RegionButton/HappinessLabel.set_happiness(happiness)
 	$RegionButton/PotatoesLabel.set_potatoes(dS)
 	

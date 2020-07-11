@@ -110,36 +110,36 @@ __meta__ = {
 [node name="Regions" type="Node2D" parent="."]
 
 [node name="RegionA" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 488.279, 296.555 )
+position = Vector2( 570.686, 320.528 )
 region_name = "Superpotamia"
 region_id = 0
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 435.043, 679.55 )
+position = Vector2( 511.457, 748.472 )
 region_name = "Gibbinz"
 region_id = 1
 
 [node name="RegionC" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 877.235, 491.591 )
+position = Vector2( 898.211, 541.035 )
 region_name = "Galbarta"
 region_id = 2
 
 [node name="RegionD" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 1089.13, 675.937 )
+position = Vector2( 1182.03, 725.381 )
 region_name = "South East Economic Region"
 region_id = 3
 
 [node name="RegionE" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 1182.36, 286.055 )
+position = Vector2( 1237.8, 338.496 )
 region_name = "Farlandia"
 region_id = 4
 
 [node name="EndTurnButton" type="Button" parent="."]
-margin_left = 92.4913
-margin_top = 814.49
-margin_right = 241.491
-margin_bottom = 903.49
-text = "TAKE ACTION"
+margin_left = 70.628
+margin_top = 915.397
+margin_right = 219.628
+margin_bottom = 1004.4
+text = "WAIT"
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
