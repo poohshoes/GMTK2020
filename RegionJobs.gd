@@ -81,6 +81,9 @@ func setup_job(labelText, parent, child):
 	if (parent != null):
 		parent.children.append(child)
 
+func _on_TextureButton_pressed():
+	hide()
+	
 #func get_single_job(labelText, parent):
 #	var result = singleJobTemplate.instance()
 #	add_child(result)
@@ -117,3 +120,4 @@ func setup_job(labelText, parent, child):
 #
 #func end_drag(mouse):
 #	pass
+

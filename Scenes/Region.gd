@@ -11,10 +11,12 @@ var taxes = 10
 var imports = 20
 var last_income = 0
 
+var regionJobs
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$RegionButton.set_text(region_name)
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -26,3 +28,7 @@ func tick():
 	$RegionButton/HappinessLabel.set_happiness(happiness)
 	# Pass the income
 	return IMPORT_MONEY_FACTOR * imports
+
+
+func _on_RegionButton_pressed():
+	regionJobs.show()

@@ -1,11 +1,17 @@
 extends Node2D
 
-#export var isUnderMouse = false
+export(int) var width;
+export(int) var height;
 
 var parent = null
 var children = []
 
 var employee = null
+
+func _ready():
+	var rect = $Background.get_rect()
+	width = rect.size.x
+	height = rect.size.y + rect.position.y
 
 func set_title(text):
 	$Title.text = text
