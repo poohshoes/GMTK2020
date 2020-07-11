@@ -42,6 +42,7 @@ func tick():
 	$ResourcesPanel/MarginContainer/HBoxContainer/MoneyLabel.set_money(money)
 	action += 1
 	$ResourcesPanel/MarginContainer/HBoxContainer/TurnLabel.set_tick(action)
+	check_events()
 
 
 func setup_region_jobs(region):
@@ -52,3 +53,17 @@ func setup_region_jobs(region):
 	region.regionJobs = regionJob
 	regionJobs.append(regionJob)
 	regionJob.setup(region.region_id)
+
+func check_game_state():
+	pass # Check if game is over
+	
+func check_events():
+	# Take the tick and see what we can do
+	if action == 2:
+		show_message("A wild event appeared! Wow! You're bananas")
+	
+	if action == 3:
+		show_message("You're so screwed")
+
+func show_message(text):
+	$MessagePanel/MarginContainer2/MessageLabel.show_message(text)
