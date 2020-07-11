@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://MultiJob.gd" type="Script" id=1]
+[ext_resource path="res://images/locked.png" type="Texture" id=2]
 
 [node name="MultiJob" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,3 +33,8 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="LockSprite" type="Sprite" parent="."]
+position = Vector2( -0.33374, 45.0509 )
+scale = Vector2( 0.766403, 0.766403 )
+texture = ExtResource( 2 )

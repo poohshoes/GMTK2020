@@ -12,28 +12,38 @@ var viewport
 var employeePool = []
 var jobs = []
 
+func get_num_workers():
+	var numWorkers = 0
+	for job in jobs:
+		numWorkers += job.get_num_workers()
+	return numWorkers
+
 func employee_drag_end(employee):
 	for job in jobs:
 #		var background = job.get_node("Background")
-		if !employee.hasJob && job.under_mouse() && job.employee == null:
-			job.employee = employee
+		if !employee.hasJob && job.under_mouse() && job.can_add_employee():
+			job.add_employee(employee)
 			employee.hasJob = true
+			for childJob in job.children:
+				childJob.unlock()
+			find_parent('World').tick()
 	if !employee.hasJob:
 		employee.return()
-			
-		
 
-# Called when the node enters the scene tree for the first time.
+
+var taxCollectors
+var potatoFarmers
 func _ready():	
 	viewport = get_viewport().size;
 	singleJobTemplate = load("res://SingleJob.tscn")
 	multiJobTemplate = load("res://MultiJob.tscn")
 	
 	rootJob = get_single_job("Regional Manager", null)
+	rootJob.unlock()
 	var taxManager = get_single_job("Tax Bureau Overseer", rootJob)
-	var taxCollector = get_multi_job("Tax Collectors", taxManager)
+	taxCollectors = get_multi_job("Tax Collectors", taxManager)
 	var potatoManager = get_single_job("Farm Safety Associate", rootJob)
-	var potatioFarmer = get_multi_job("Potato Extraction Experts", potatoManager)
+	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager)
 	
 	
 	

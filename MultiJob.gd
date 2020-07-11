@@ -6,8 +6,25 @@ export(int) var height;
 var parent = null
 var children = []
 
-var employee = null
+var employee = []
 
+var locked = true
+
+
+func get_num_workers():
+	return employee.size()
+
+
+func unlock():
+	locked = false
+	$LockSprite.hide()
+	
+func can_add_employee():
+	return !locked
+
+func add_employee(newEmployee):
+	employee.append(newEmployee)
+	
 func _ready():
 	pass
 

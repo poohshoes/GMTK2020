@@ -26,6 +26,12 @@ func tick():
 	# Update the happiness
 	happiness += TAX_HAPPY_FACTOR * taxes + IMPORT_HAPPY_FACTOR * imports
 	$RegionButton/HappinessLabel.set_happiness(happiness)
+	
+	# Get region job data
+	var numWorkers = regionJobs.get_num_workers()
+	var numTaxCollectors = regionJobs.taxCollectors.employee.size()
+	var numPotatoFarmers = regionJobs.potatoFarmers.employee.size()
+	
 	# Pass the income
 	return IMPORT_MONEY_FACTOR * imports
 

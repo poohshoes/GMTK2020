@@ -8,6 +8,25 @@ var children = []
 
 var employee = null
 
+var locked = true
+
+func get_num_workers():
+	var numWorkers = 0
+	if employee != null:
+		numWorkers += 1
+	return numWorkers
+	
+
+func unlock():
+	locked = false
+	$LockSprite.hide()
+
+func can_add_employee():
+	return !locked && employee == null
+	
+func add_employee(newEmployee):
+	employee = newEmployee
+	
 func _ready():
 	pass
 	
