@@ -83,11 +83,11 @@ __meta__ = {
 [node name="Regions" type="Node2D" parent="."]
 
 [node name="RegionA" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 304.964, 392.417 )
+position = Vector2( 304, 392 )
 region_name = "Superpotamia"
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 820.174, 487.826 )
+position = Vector2( 820, 487 )
 region_name = "Gibbinz"
 
 [node name="EndTurnButton" type="Button" parent="."]

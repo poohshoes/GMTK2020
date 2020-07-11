@@ -1,14 +1,33 @@
 extends Node2D
 
-#export var isUnderMouse = false
+export(int) var width;
+export(int) var height;
 
 var parent = null
 var children = []
 
 var employee = null
 
+func _ready():
+	pass
+	
+func _process(delta):
+	pass
+	
+func _draw():
+	var position = $Background.rect_position
+	var color = Color("310909")
+	draw_circle(position + ($Background.rect_size / 2), 25, color)
+
 func set_title(text):
 	$Title.text = text
+	var size = $Title.get_minimum_size()
+	$Title.rect_size = size
+	$Title.rect_position.x = floor(-(size.x / 2))
+	
+	var rect = $Background.get_rect()
+	width = max(rect.size.x, $Title.get_rect().size.x)
+	height = rect.size.y + rect.position.y
 
 func under_mouse():
 	var mouse = $Background.get_global_mouse_position()

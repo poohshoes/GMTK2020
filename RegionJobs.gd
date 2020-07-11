@@ -30,12 +30,29 @@ func _ready():
 	multiJobTemplate = load("res://MultiJob.tscn")
 	
 	rootJob = get_single_job("Regional Manager", null)
-	
 	var taxManager = get_single_job("Tax Bureau Overseer", rootJob)
-	
 	var taxCollector = get_multi_job("Tax Collectors", taxManager)
+	var potatoManager = get_single_job("Farm Safety Associate", rootJob)
+	var potatioFarmer = get_multi_job("Potato Extraction Experts", potatoManager)
 	
-	layout(rootJob)
+	
+	
+	var depthMaxHeight = []
+	var depthWidth = []
+	get_layout_sizes(rootJob, depthMaxHeight, depthWidth, 0)
+	var depthHeight = []
+	var runningHeight = 20
+	for i in range(depthMaxHeight.size()):
+		depthHeight.append(runningHeight)
+		runningHeight += depthMaxHeight[i] + 20
+	#var maxWidth = depthWidth.max()
+	var currentDepthWidth = []
+	var graphWidth = viewport.x - $EmployeePool.get_rect().size.x
+	for depth in range(depthWidth.size()):
+		var unusedWidth = graphWidth - depthWidth[depth]
+		currentDepthWidth.append(unusedWidth / 2)
+	layout(rootJob, depthHeight, depthWidth, currentDepthWidth, 0)
+
 
 
 	var employeeTemplate = load("res://Employee.tscn")
@@ -47,18 +64,45 @@ func _ready():
 		employee.position.y = $EmployeePool.rect_position.y + (randi()%int($EmployeePool.rect_size.y))
 		employee.connect("drag_end", self, "employee_drag_end")
 
+func get_layout_sizes(node, height, width, depth):
+	if width.size() <= depth:
+		width.append(0)
+		height.append(0)
+	width[depth] += node.width + 10
+	height[depth] = max(node.height, height[depth])
+	
+	for child in node.children:
+		get_layout_sizes(child, height, width, depth + 1)
+
+func layout(node, height, width, currentWidth, depth):
+	var hMargin = 10
+	currentWidth[depth] += hMargin
+	node.position.x = floor(currentWidth[depth] + (node.width / 2))
+	currentWidth[depth] += hMargin + node.width
+	node.position.y = floor(height[depth])
+	
+	if node.parent != null:
+		var parentPosition = node.parent.get_global_position()
+		var myPosition = node.get_global_position()
+		var lineOffset = parentPosition - myPosition
+		lineOffset.y += node.parent.height
+		var line = node.get_node("Line2D")
+		line.points[1] = lineOffset
+
+	for child in node.children:
+		layout(child, height, width, currentWidth, depth + 1)
 
 
-func layout(node):
+func layout2(node):
 	if node.parent == null:
 		node.position.y = 0;
 		node.position.x = viewport.x / 2
 	else:
 		node.position.y = node.parent.position.y + 100
 		node.position.x = node.parent.position.x
-		
+
 	for child in node.children:
-		layout(child)
+		layout2(child)
 
 
 func get_single_job(labelText, parent):
