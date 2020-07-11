@@ -3,8 +3,11 @@ extends Node2D
 export(int) var width;
 export(int) var height;
 
-var parents = null
+var parents = []
+var lines = []
 var children = []
+# These are the children where we are their parent[0]
+var layoutChildren = []
 
 var employee = []
 
