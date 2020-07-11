@@ -11,27 +11,27 @@
 [ext_resource path="res://Font/10CentSoviet32.tres" type="DynamicFontData" id=9]
 [ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=1]
 font_path = "res://Font/10CESRG_.TTF"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=2]
 size = 32
-font_data = SubResource( 4 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 32
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFontData" id=2]
-font_path = "res://Font/10CESRG_.TTF"
+font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
-font_data = SubResource( 2 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = SubResource( 5 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -101,7 +101,7 @@ size_flags_vertical = 3
 margin_right = 1096.0
 margin_bottom = 800.0
 size_flags_vertical = 3
-custom_fonts/normal_font = SubResource( 5 )
+custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Welcome, Beloved Leader!
 
@@ -134,7 +134,7 @@ alignment = 1
 margin_left = 519.0
 margin_right = 576.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "OK"
 
 [node name="ResourcesPanel" type="PanelContainer" parent="."]
@@ -177,7 +177,7 @@ margin_left = 36.0
 margin_top = 1.0
 margin_right = 157.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Turn: 8"
 script = ExtResource( 6 )
@@ -196,7 +196,7 @@ margin_left = 197.0
 margin_top = 1.0
 margin_right = 359.0
 margin_bottom = 39.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 6 )
 text = "Money: 10"
 valign = 1
 script = ExtResource( 5 )

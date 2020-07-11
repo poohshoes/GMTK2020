@@ -178,8 +178,8 @@ func layout_lines(node):
 	
 		var line = Line2D.new()
 		line.set_name("line")
-		node.move_child(node, 0)
 		node.add_child(line)
+		node.move_child(line, 0)
 		node.lines.append(line)
 		line.add_point(Vector2(0, 0))
 		line.add_point(lineOffset)
