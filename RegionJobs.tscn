@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://RegionJobs.gd" type="Script" id=1]
+
+[node name="Node2D" type="Node2D"]
+position = Vector2( -1, 2 )
+script = ExtResource( 1 )
+
+[node name="EmployeePool" type="ColorRect" parent="."]
+margin_left = 1554.0
+margin_top = 13.0
+margin_right = 1917.0
+margin_bottom = 382.0
+color = Color( 0.0352941, 0.192157, 0.0431373, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
