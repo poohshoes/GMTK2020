@@ -11,17 +11,6 @@
 [ext_resource path="res://Font/10CentSoviet32.tres" type="DynamicFontData" id=9]
 [ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
 
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFontData" id=2]
-font_path = "res://Font/10CESRG_.TTF"
-
-[sub_resource type="DynamicFont" id=3]
-size = 32
-font_data = SubResource( 2 )
-
 [sub_resource type="DynamicFontData" id=4]
 font_path = "res://Font/10CESRG_.TTF"
 
@@ -33,79 +22,23 @@ font_data = SubResource( 4 )
 size = 32
 font_data = ExtResource( 9 )
 
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = SubResource( 2 )
+
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="WorldMap" type="Sprite" parent="."]
 position = Vector2( 960, 540 )
 texture = ExtResource( 1 )
-
-[node name="ResourcesPanel" type="PanelContainer" parent="."]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 399.569
-margin_bottom = 71.4255
-size_flags_horizontal = 3
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="ColorRect" parent="ResourcesPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 376.569
-margin_bottom = 48.4255
-color = Color( 0.258824, 0.737255, 1, 0.305882 )
-
-[node name="MarginContainer" type="MarginContainer" parent="ResourcesPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 376.569
-margin_bottom = 48.4255
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ResourcesPanel/MarginContainer"]
-margin_right = 369.0
-margin_bottom = 41.0
-size_flags_horizontal = 3
-
-[node name="TurnIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_right = 32.0
-margin_bottom = 41.0
-texture = ExtResource( 7 )
-
-[node name="TurnLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 36.0
-margin_top = 1.0
-margin_right = 157.0
-margin_bottom = 39.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Turn: 8"
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MoneyIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 161.0
-margin_right = 193.0
-margin_bottom = 41.0
-texture = ExtResource( 8 )
-
-[node name="MoneyLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 197.0
-margin_top = 1.0
-margin_right = 359.0
-margin_bottom = 39.0
-custom_fonts/font = SubResource( 3 )
-text = "Money: 10"
-valign = 1
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Regions" type="Node2D" parent="."]
 
@@ -203,4 +136,71 @@ margin_right = 576.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 6 )
 text = "OK"
+
+[node name="ResourcesPanel" type="PanelContainer" parent="."]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 399.569
+margin_bottom = 71.4255
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="ResourcesPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 376.569
+margin_bottom = 48.4255
+color = Color( 0.258824, 0.737255, 1, 0.305882 )
+
+[node name="MarginContainer" type="MarginContainer" parent="ResourcesPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 376.569
+margin_bottom = 48.4255
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourcesPanel/MarginContainer"]
+margin_right = 369.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+
+[node name="TurnIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
+margin_right = 32.0
+margin_bottom = 41.0
+texture = ExtResource( 7 )
+
+[node name="TurnLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
+margin_left = 36.0
+margin_top = 1.0
+margin_right = 157.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Turn: 8"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MoneyIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
+margin_left = 161.0
+margin_right = 193.0
+margin_bottom = 41.0
+texture = ExtResource( 8 )
+
+[node name="MoneyLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
+margin_left = 197.0
+margin_top = 1.0
+margin_right = 359.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 3 )
+text = "Money: 10"
+valign = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="WelcomePanel/VBoxContainer/HBoxContainer/CloseIntroButton" to="WelcomePanel" method="_on_CloseIntroButton_pressed"]

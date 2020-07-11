@@ -11,6 +11,8 @@ var regionJobs = []
 func _ready():
 	for region in $Regions.get_children():
 		setup_region_jobs(region)
+	
+	self.move_child($ResourcesPanel, get_child_count())
 		
 func tick():
 	# Start with a bunch of regional stuff (see region code)
@@ -51,3 +53,5 @@ func setup_region_jobs(region):
 	region.regionJobs = regionJob
 	regionJobs.append(regionJob)
 	regionJob.setup(region.region_id)
+	
+	#$ResourcesPanel.move_child(self, get_child_count())
