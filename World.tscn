@@ -12,27 +12,27 @@
 [ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
 [ext_resource path="res://MessageLabel.gd" type="Script" id=11]
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://Font/10CESRG_.TTF"
-
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 32
-font_data = SubResource( 1 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://Font/10CESRG_.TTF"
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
-font_data = ExtResource( 9 )
+font_data = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 32
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="DynamicFontData" id=4]
 font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = SubResource( 4 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 32
-font_data = SubResource( 5 )
+font_data = ExtResource( 9 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -41,7 +41,6 @@ script = ExtResource( 2 )
 position = Vector2( 960, 540 )
 texture = ExtResource( 1 )
 
-<<<<<<< HEAD
 [node name="ResourcesPanel" type="PanelContainer" parent="."]
 margin_left = 16.0
 margin_top = 16.0
@@ -147,34 +146,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-=======
->>>>>>> 0439b276d17033b0219ed0da43d14765f23a15a8
 [node name="Regions" type="Node2D" parent="."]
 
 [node name="RegionA" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 570.686, 320.528 )
 region_name = "Superpotamia"
 region_id = 0
+starting_population = null
+starting_happiness = null
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 511.457, 748.472 )
 region_name = "Gibbinz"
 region_id = 1
+starting_population = null
+starting_happiness = null
 
 [node name="RegionC" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 898.211, 541.035 )
 region_name = "Galbarta"
 region_id = 2
+starting_population = null
+starting_happiness = null
 
 [node name="RegionD" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1182.03, 725.381 )
 region_name = "South East Economic Region"
 region_id = 3
+starting_population = null
+starting_happiness = null
 
 [node name="RegionE" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1237.8, 338.496 )
 region_name = "Farlandia"
 region_id = 4
+starting_population = null
+starting_happiness = null
 
 [node name="EndTurnButton" type="Button" parent="."]
 margin_left = 70.628
@@ -210,7 +217,7 @@ size_flags_vertical = 3
 margin_right = 1096.0
 margin_bottom = 800.0
 size_flags_vertical = 3
-custom_fonts/normal_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 5 )
 bbcode_enabled = true
 bbcode_text = "Welcome, Beloved Leader!
 
@@ -243,73 +250,6 @@ alignment = 1
 margin_left = 519.0
 margin_right = 576.0
 margin_bottom = 44.0
-custom_fonts/font = SubResource( 3 )
-text = "OK"
-
-[node name="ResourcesPanel" type="PanelContainer" parent="."]
-margin_left = 16.0
-margin_top = 16.0
-margin_right = 399.569
-margin_bottom = 71.4255
-size_flags_horizontal = 3
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Background" type="ColorRect" parent="ResourcesPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 376.569
-margin_bottom = 48.4255
-color = Color( 0.258824, 0.737255, 1, 0.305882 )
-
-[node name="MarginContainer" type="MarginContainer" parent="ResourcesPanel"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 376.569
-margin_bottom = 48.4255
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ResourcesPanel/MarginContainer"]
-margin_right = 369.0
-margin_bottom = 41.0
-size_flags_horizontal = 3
-
-[node name="TurnIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_right = 32.0
-margin_bottom = 41.0
-texture = ExtResource( 7 )
-
-[node name="TurnLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 36.0
-margin_top = 1.0
-margin_right = 157.0
-margin_bottom = 39.0
-custom_fonts/font = SubResource( 4 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Turn: 8"
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MoneyIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 161.0
-margin_right = 193.0
-margin_bottom = 41.0
-texture = ExtResource( 8 )
-
-[node name="MoneyLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 197.0
-margin_top = 1.0
-margin_right = 359.0
-margin_bottom = 39.0
 custom_fonts/font = SubResource( 6 )
-text = "Money: 10"
-valign = 1
-script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "OK"
 [connection signal="pressed" from="WelcomePanel/VBoxContainer/HBoxContainer/CloseIntroButton" to="WelcomePanel" method="_on_CloseIntroButton_pressed"]
