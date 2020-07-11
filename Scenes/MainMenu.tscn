@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Resources/Logo.png" type="Texture" id=1]
 [ext_resource path="res://Font/10CentSoviet72.tres" type="DynamicFontData" id=2]
 [ext_resource path="res://Font/Kremlin Minister Black.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/NewGame.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=3]
 size = 112
@@ -69,6 +70,7 @@ mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 6 )
 text = "New Game"
 align = 0
+script = ExtResource( 4 )
 
 [node name="Tutorial" type="ToolButton" parent="MarginContainer/VBoxContainer/MenuOptions"]
 margin_top = 87.0

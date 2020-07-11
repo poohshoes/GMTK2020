@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Resources/WorldMap.png" type="Texture" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Resources/Time.png" type="Texture" id=7]
 [ext_resource path="res://Resources/Money.png" type="Texture" id=8]
 [ext_resource path="res://Font/10CentSoviet32.tres" type="DynamicFontData" id=9]
+[ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -20,6 +21,17 @@ font_path = "res://Font/10CESRG_.TTF"
 [sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 9 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -110,3 +122,63 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="WelcomePanel" type="PanelContainer" parent="."]
+visible = false
+margin_left = 382.0
+margin_top = 125.0
+margin_right = 1492.0
+margin_bottom = 987.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1103.0
+margin_bottom = 855.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WelcomePanel/VBoxContainer"]
+margin_right = 1096.0
+margin_bottom = 800.0
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "Welcome, Beloved Leader!
+
+Your brother's passing was a great blow to the people of Controvia. Mourning was enforced for days, with great entirely voluntary displays of affection and sadness.
+
+You have decided to take the country in a new direction. Apparently, the greatest states in the world focus on making their people happy. To administer this change towards a happy people you have created the [color=yellow]Central Happiness Committee[/color] to oversee the administration of happiness among the five mighty regions of Controvia.
+
+As your policy dictates, you can hire beuraucrats to administer the transfer of potatoes, collect taxes, or regulate the economy. As your policy also dictates, [color=yellow]nobody can be fired[/color].
+
+Best of luck!
+"
+text = "Welcome, Beloved Leader!
+
+Your brother's passing was a great blow to the people of Controvia. Mourning was enforced for days, with great entirely voluntary displays of affection and sadness.
+
+You have decided to take the country in a new direction. Apparently, the greatest states in the world focus on making their people happy. To administer this change towards a happy people you have created the Central Happiness Committee to oversee the administration of happiness among the five mighty regions of Controvia.
+
+As your policy dictates, you can hire beuraucrats to administer the transfer of potatoes, collect taxes, or regulate the economy. As your policy also dictates, nobody can be fired.
+
+Best of luck!
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WelcomePanel/VBoxContainer"]
+margin_top = 804.0
+margin_right = 1096.0
+margin_bottom = 848.0
+alignment = 1
+
+[node name="CloseIntroButton" type="Button" parent="WelcomePanel/VBoxContainer/HBoxContainer"]
+margin_left = 519.0
+margin_right = 576.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 6 )
+text = "OK"
+[connection signal="pressed" from="WelcomePanel/VBoxContainer/HBoxContainer/CloseIntroButton" to="WelcomePanel" method="_on_CloseIntroButton_pressed"]
