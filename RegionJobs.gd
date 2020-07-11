@@ -18,6 +18,21 @@ func get_num_workers():
 		numWorkers += job.get_num_workers()
 	return numWorkers
 
+func check_lock(job):
+	var parentsHappy = true
+	for parent in job.parents:
+		if parentsHappy:
+			if parent.isMultiJob:
+				var numWorkersAllowed = parent.get_num_workers() * parent.workersPerManager
+				parentsHappy = job.get_num_workers() < numWorkersAllowed
+			else:
+				parentsHappy = parent.get_num_workers() == 1
+	
+	if parentsHappy && job.locked:
+		job.unlock()
+	elif !parentsHappy && !job.locked:
+		job.lock()
+
 func employee_drag_end(employee):
 	for job in jobs:
 #		var background = job.get_node("Background")
@@ -25,7 +40,11 @@ func employee_drag_end(employee):
 			job.add_employee(employee)
 			employee.hasJob = true
 			for childJob in job.children:
-				childJob.unlock()
+				check_lock(childJob)
+				#childJob.unlock()
+			#if job.isMultiJob && job.parents.size() != 0 && job.parent.isMultiJob:
+			check_lock(job)
+				
 			find_parent('World').tick()
 	if !employee.hasJob:
 		employee.return()
@@ -41,10 +60,14 @@ func setup(regionId):
 	
 	rootJob = get_single_job("Regional Manager", null)
 	rootJob.unlock()
-	var taxManager = get_single_job("Tax Bureau Overseer", rootJob)
+	var taxManager = get_multi_job("Tax Bureau Overseer", rootJob)
+	taxManager.workersPerManager = 2
 	taxCollectors = get_multi_job("Tax Collectors", taxManager)
 	var potatoManager = get_single_job("Farm Safety Associate", rootJob)
+	var potatoManager2 = get_multi_job("Blarb", rootJob)
+	potatoManager2.workersPerManager = 2
 	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager)
+	extra_parent(potatoFarmers, potatoManager2)
 	
 	for i in range(5):
 		potatoDrivers.append(null)
@@ -87,17 +110,21 @@ func setup(regionId):
 		var unusedWidth = graphWidth - depthWidth[depth]
 		currentDepthWidth.append(unusedWidth / 2)
 	layout(rootJob, depthHeight, depthWidth, currentDepthWidth, 0)
-
+	layout_lines(rootJob)
 
 
 	var employeeTemplate = load("res://Employee.tscn")
-	for i in range(5):
+	for i in range(10):
 		var employee = employeeTemplate.instance()
 		add_child(employee)
 		employeePool.append(employee)
 		employee.position.x = $EmployeePool.rect_position.x + (randi()%int($EmployeePool.rect_size.x))
 		employee.position.y = $EmployeePool.rect_position.y + (randi()%int($EmployeePool.rect_size.y))
 		employee.connect("drag_end", self, "employee_drag_end")
+
+func extra_parent(child, parent):
+	child.parents.append(parent)
+	parent.children.append(child)
 
 func setup_shipper(regionId, parent):
 	var name = "NAME NOT FOUND"
@@ -119,7 +146,7 @@ func get_layout_sizes(node, height, width, depth):
 	width[depth] += node.width + 10
 	height[depth] = max(node.height, height[depth])
 	
-	for child in node.children:
+	for child in node.layoutChildren:
 		get_layout_sizes(child, height, width, depth + 1)
 
 func layout(node, height, width, currentWidth, depth):
@@ -129,16 +156,39 @@ func layout(node, height, width, currentWidth, depth):
 	currentWidth[depth] += hMargin + node.width
 	node.position.y = floor(height[depth])
 	
-	if node.parent != null:
-		var parentPosition = node.parent.get_global_position()
+	for child in node.layoutChildren:
+		layout(child, height, width, currentWidth, depth + 1)
+		
+func layout_lines(node):
+	for parent in node.parents:
+		var parentPosition = parent.get_global_position()
 		var myPosition = node.get_global_position()
 		var lineOffset = parentPosition - myPosition
-		lineOffset.y += node.parent.height
-		var line = node.get_node("Line2D")
-		line.points[1] = lineOffset
+		lineOffset.y += parent.height
+	
+		var line = Line2D.new()
+		line.set_name("line")
+		node.move_child(node, 0)
+		node.add_child(line)
+		node.lines.append(line)
+		line.add_point(Vector2(0, 0))
+		line.add_point(lineOffset)
+		line.width = 5
+		line.default_color = Color("560b0b")
+		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+		line.end_cap_mode = Line2D.LINE_CAP_ROUND
+		
+	for child in node.layoutChildren:
+		layout_lines(child)
+	
+#	if node.parents.size() > 0:
+#		var parentPosition = node.parents[0].get_global_position()
+#		var myPosition = node.get_global_position()
+#		var lineOffset = parentPosition - myPosition
+#		lineOffset.y += node.parents[0].height
+#		var line = node.get_node("Line2D")
+#		line.points[1] = lineOffset
 
-	for child in node.children:
-		layout(child, height, width, currentWidth, depth + 1)
 
 
 func layout2(node):
@@ -149,7 +199,7 @@ func layout2(node):
 		node.position.y = node.parent.position.y + 100
 		node.position.x = node.parent.position.x
 
-	for child in node.children:
+	for child in node.layoutChildren:
 		layout2(child)
 
 
@@ -157,7 +207,6 @@ func get_single_job(labelText, parent):
 	var result = singleJobTemplate.instance()
 	setup_job(labelText, parent, result)
 	return result
-
 
 func get_multi_job(labelText, parent):
 	var result = multiJobTemplate.instance()
@@ -169,9 +218,10 @@ func setup_job(labelText, parent, child):
 	add_child(child)
 	jobs.append(child)
 	child.set_title(labelText)
-	child.parent = parent
-	if (parent != null):
+	if parent != null:
+		child.parents.append(parent)
 		parent.children.append(child)
+		parent.layoutChildren.append(child)
 
 func _on_TextureButton_pressed():
 	hide()
