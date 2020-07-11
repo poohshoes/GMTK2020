@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Resources/WorldMap.png" type="Texture" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
@@ -8,6 +8,30 @@
 [ext_resource path="res://TurnLabel.gd" type="Script" id=6]
 [ext_resource path="res://Resources/Time.png" type="Texture" id=7]
 [ext_resource path="res://Resources/Money.png" type="Texture" id=8]
+[ext_resource path="res://Font/10CentSoviet32.tres" type="DynamicFontData" id=9]
+[ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = SubResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 9 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
@@ -27,32 +51,32 @@ __meta__ = {
 [node name="Background" type="ColorRect" parent="ResourcesPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 343.0
-margin_bottom = 43.0
+margin_right = 366.0
+margin_bottom = 45.0
 color = Color( 0.258824, 0.737255, 1, 0.305882 )
 
 [node name="MarginContainer" type="MarginContainer" parent="ResourcesPanel"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 343.0
-margin_bottom = 43.0
+margin_right = 366.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ResourcesPanel/MarginContainer"]
-margin_right = 336.0
-margin_bottom = 36.0
+margin_right = 359.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 
 [node name="TurnIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
 margin_right = 32.0
-margin_bottom = 36.0
+margin_bottom = 38.0
 texture = ExtResource( 7 )
 
 [node name="TurnLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
 margin_left = 36.0
-margin_top = 11.0
-margin_right = 80.0
-margin_bottom = 25.0
+margin_right = 157.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Turn: 8"
 script = ExtResource( 6 )
@@ -61,18 +85,16 @@ __meta__ = {
 }
 
 [node name="MoneyIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 84.0
-margin_right = 116.0
-margin_bottom = 36.0
+margin_left = 161.0
+margin_right = 193.0
+margin_bottom = 38.0
 texture = ExtResource( 8 )
 
 [node name="MoneyLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 120.0
-margin_top = 11.0
-margin_right = 187.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.870588, 0.937255, 0, 1 )
-custom_colors/font_color_shadow = Color( 0.756863, 0.00392157, 0.00392157, 0.376471 )
+margin_left = 197.0
+margin_right = 359.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 3 )
 text = "Money: 10"
 valign = 1
 script = ExtResource( 5 )
@@ -83,11 +105,11 @@ __meta__ = {
 [node name="Regions" type="Node2D" parent="."]
 
 [node name="RegionA" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 304, 392 )
+position = Vector2( 304.964, 392.417 )
 region_name = "Superpotamia"
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 820, 487 )
+position = Vector2( 820.174, 487.826 )
 region_name = "Gibbinz"
 
 [node name="EndTurnButton" type="Button" parent="."]
@@ -100,3 +122,63 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="WelcomePanel" type="PanelContainer" parent="."]
+visible = false
+margin_left = 382.0
+margin_top = 125.0
+margin_right = 1492.0
+margin_bottom = 987.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WelcomePanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1103.0
+margin_bottom = 855.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WelcomePanel/VBoxContainer"]
+margin_right = 1096.0
+margin_bottom = 800.0
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+bbcode_text = "Welcome, Beloved Leader!
+
+Your brother's passing was a great blow to the people of Controvia. Mourning was enforced for days, with great entirely voluntary displays of affection and sadness.
+
+You have decided to take the country in a new direction. Apparently, the greatest states in the world focus on making their people happy. To administer this change towards a happy people you have created the [color=yellow]Central Happiness Committee[/color] to oversee the administration of happiness among the five mighty regions of Controvia.
+
+As your policy dictates, you can hire beuraucrats to administer the transfer of potatoes, collect taxes, or regulate the economy. As your policy also dictates, [color=yellow]nobody can be fired[/color].
+
+Best of luck!
+"
+text = "Welcome, Beloved Leader!
+
+Your brother's passing was a great blow to the people of Controvia. Mourning was enforced for days, with great entirely voluntary displays of affection and sadness.
+
+You have decided to take the country in a new direction. Apparently, the greatest states in the world focus on making their people happy. To administer this change towards a happy people you have created the Central Happiness Committee to oversee the administration of happiness among the five mighty regions of Controvia.
+
+As your policy dictates, you can hire beuraucrats to administer the transfer of potatoes, collect taxes, or regulate the economy. As your policy also dictates, nobody can be fired.
+
+Best of luck!
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WelcomePanel/VBoxContainer"]
+margin_top = 804.0
+margin_right = 1096.0
+margin_bottom = 848.0
+alignment = 1
+
+[node name="CloseIntroButton" type="Button" parent="WelcomePanel/VBoxContainer/HBoxContainer"]
+margin_left = 519.0
+margin_right = 576.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 6 )
+text = "OK"
+[connection signal="pressed" from="WelcomePanel/VBoxContainer/HBoxContainer/CloseIntroButton" to="WelcomePanel" method="_on_CloseIntroButton_pressed"]

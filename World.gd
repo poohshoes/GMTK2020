@@ -13,11 +13,10 @@ func _ready():
 		setup_region_jobs(region)
 		
 func tick():
-	# Going to need to: 
-		# Calculate total payroll
-		# Update regional happiness
-		# Calculate import-export regional stuff
-		# Calculate taxes collected
+	# Start with a bunch of regional stuff (see region code)
+	
+	# Check game state
+	# Introduce events for next action(s)
 	
 	income = 0 
 	for region in $Regions.get_children():

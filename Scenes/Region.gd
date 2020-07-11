@@ -1,20 +1,40 @@
 extends Node
 
-const TAX_HAPPY_FACTOR = -1.2
-const IMPORT_HAPPY_FACTOR = 1.0
-const IMPORT_MONEY_FACTOR = -1.0
+const FEE_HAPPY_FACTOR = -1.2
+const POTATO_HAPPY_FACTOR = 1.0
+const POTATO_BUY_PRICE = 15
+const POTATO_SELL_PRICE = 10
+
+const FARMER_SALARY = 10
+const FEE_COLLECTOR_SALARY = 20
+const WORKER_SALARY = 5
 
 export var region_name = "[Name]"
+export var starting_population = 100
+export var starting_happiness = 20
+export var starting_tax_effectiveness = 0.2
 
-var happiness = 80 # Set initial happiness
-var taxes = 10
-var imports = 20
-var last_income = 0
+var happiness # Set initial happiness
+var dH # Per-tick change in happiness
+var fees
+var dF # Per-tick change in fees collected
+var imports
+var exports
+var dS # Per-tick calculation of surplus/deficit potatoes
+var population
+var dP # Per-tick calculation of change in population
+var dM # Per-tick flow of money surplus/deficit
 
 var regionJobs
+var feeRate
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set initial variables
+	happiness = starting_happiness
+	population = starting_population
+	feeRate = starting_tax_effectiveness
+	# Update UI elements
 	$RegionButton.set_text(region_name)
 	
 
@@ -23,18 +43,34 @@ func _ready():
 #	pass
 
 func tick():
-	# Update the happiness
-	happiness += TAX_HAPPY_FACTOR * taxes + IMPORT_HAPPY_FACTOR * imports
-	$RegionButton/HappinessLabel.set_happiness(happiness)
-	
 	# Get region job data
 	var numWorkers = regionJobs.get_num_workers()
 	var numTaxCollectors = regionJobs.taxCollectors.employee.size()
 	var numPotatoFarmers = regionJobs.potatoFarmers.employee.size()
 	
-	# Pass the income
-	return IMPORT_MONEY_FACTOR * imports
+	# Update potato production
+	dS = population # Start with one potato produced per person
+	# Some way to have workers improve potatoes
+	dS += imports - exports # Adjust by net flow
+	
+	# Buy imports
+	dM = POTATO_SELL_PRICE * exports - POTATO_BUY_PRICE * imports
+	# Collect fees from citizens
+	dM += feeRate * population
+	# Pay salaries
+	dM -= numPotatoFarmers * FARMER_SALARY + numTaxCollectors * FEE_COLLECTOR_SALARY + numWorkers * WORKER_SALARY
+	
+	# Calculate happiness
+	dH = FEE_HAPPY_FACTOR * feeRate + POTATO_HAPPY_FACTOR * dS
+
+	$RegionButton/HappinessLabel.set_happiness(happiness)
+	
+	# Reconcile with national treasury (surplus/deficit)
+	return dM
 
 
 func _on_RegionButton_pressed():
 	regionJobs.show()
+
+func collect_fees():
+	pass
