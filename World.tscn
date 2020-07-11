@@ -112,10 +112,27 @@ __meta__ = {
 [node name="RegionA" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 488.279, 296.555 )
 region_name = "Superpotamia"
+region_id = 0
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 435.043, 679.55 )
 region_name = "Gibbinz"
+region_id = 1
+
+[node name="RegionC" parent="Regions" instance=ExtResource( 4 )]
+position = Vector2( 877.235, 491.591 )
+region_name = "Galbarta"
+region_id = 2
+
+[node name="RegionD" parent="Regions" instance=ExtResource( 4 )]
+position = Vector2( 1089.13, 675.937 )
+region_name = "South East Economic Region"
+region_id = 3
+
+[node name="RegionE" parent="Regions" instance=ExtResource( 4 )]
+position = Vector2( 1182.36, 286.055 )
+region_name = "Farlandia"
+region_id = 4
 
 [node name="EndTurnButton" type="Button" parent="."]
 margin_left = 92.4913

@@ -10,6 +10,7 @@ const FEE_COLLECTOR_SALARY = 20
 const WORKER_SALARY = 5
 
 export var region_name = "[Name]"
+export var region_id = -1
 export var starting_population = 100
 export var starting_happiness = 20
 export var starting_tax_effectiveness = 0.2
@@ -18,8 +19,8 @@ var happiness # Set initial happiness
 var dH # Per-tick change in happiness
 var fees
 var dF # Per-tick change in fees collected
-var imports = 10
-var exports = 10
+#var imports = 10
+#var exports = 10
 var dS # Per-tick calculation of surplus/deficit potatoes
 var population
 var dP # Per-tick calculation of change in population
@@ -42,7 +43,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func tick():
+func tick(imports, exports):
 	# Get region job data
 	var numWorkers = regionJobs.get_num_workers()
 	var numTaxCollectors = regionJobs.taxCollectors.employee.size()
@@ -64,6 +65,7 @@ func tick():
 	dH = FEE_HAPPY_FACTOR * feeRate + POTATO_HAPPY_FACTOR * dS
 
 	$RegionButton/HappinessLabel.set_happiness(happiness)
+	$RegionButton/PotatoesLabel.set_potatoes(dS)
 	
 	# Reconcile with national treasury (surplus/deficit)
 	return dM

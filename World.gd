@@ -14,13 +14,29 @@ func _ready():
 		
 func tick():
 	# Start with a bunch of regional stuff (see region code)
+	var potatoesPerDriver = 5
+	var exportsByRegion = []
+	var importsByRegion = []
+	for i in range(5):
+		exportsByRegion.append(0)
+		importsByRegion.append(0)
+	for regionJobIndex in range(regionJobs.size()):
+		var regionJob = regionJobs[regionJobIndex]
+		for driverIndex in range(regionJob.potatoDrivers.size()):
+			var potatoDrivers = regionJob.potatoDrivers[driverIndex]
+			if potatoDrivers != null:
+				var numDrivers = potatoDrivers.get_num_workers()
+				exportsByRegion[regionJobIndex] += numDrivers * potatoesPerDriver
+				importsByRegion[driverIndex] += numDrivers * potatoesPerDriver
 	
 	# Check game state
 	# Introduce events for next action(s)
 	
 	income = 0 
-	for region in $Regions.get_children():
-		income += region.tick()
+	var regions = $Regions.get_children()
+	for regionIndex in regions.size():
+		var region = regions[regionIndex]
+		income += region.tick(importsByRegion[regionIndex], exportsByRegion[regionIndex])
 	money += income
 	$ResourcesPanel/MarginContainer/HBoxContainer/MoneyLabel.set_money(money)
 	action += 1
@@ -34,3 +50,4 @@ func setup_region_jobs(region):
 	regionJob.hide()
 	region.regionJobs = regionJob
 	regionJobs.append(regionJob)
+	regionJob.setup(region.region_id)

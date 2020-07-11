@@ -33,7 +33,8 @@ func employee_drag_end(employee):
 
 var taxCollectors
 var potatoFarmers
-func _ready():	
+var potatoDrivers = []
+func setup(regionId):	
 	viewport = get_viewport().size;
 	singleJobTemplate = load("res://SingleJob.tscn")
 	multiJobTemplate = load("res://MultiJob.tscn")
@@ -45,6 +46,30 @@ func _ready():
 	var potatoManager = get_single_job("Farm Safety Associate", rootJob)
 	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager)
 	
+	for i in range(5):
+		potatoDrivers.append(null)
+	match regionId:
+		0:
+			setup_shipper(1, rootJob)
+			setup_shipper(2, rootJob)
+			setup_shipper(4, rootJob)
+		1:
+			setup_shipper(0, rootJob)
+			setup_shipper(2, rootJob)
+			setup_shipper(3, rootJob)
+		2:
+			setup_shipper(0, rootJob)
+			setup_shipper(1, rootJob)
+			setup_shipper(3, rootJob)
+			setup_shipper(4, rootJob)
+		3:
+			setup_shipper(1, rootJob)
+			setup_shipper(2, rootJob)
+			setup_shipper(4, rootJob)
+		4:
+			setup_shipper(0, rootJob)
+			setup_shipper(2, rootJob)
+			setup_shipper(3, rootJob)
 	
 	
 	var depthMaxHeight = []
@@ -73,6 +98,19 @@ func _ready():
 		employee.position.x = $EmployeePool.rect_position.x + (randi()%int($EmployeePool.rect_size.x))
 		employee.position.y = $EmployeePool.rect_position.y + (randi()%int($EmployeePool.rect_size.y))
 		employee.connect("drag_end", self, "employee_drag_end")
+
+func setup_shipper(regionId, parent):
+	var name = "NAME NOT FOUND"
+	
+	var regions = find_parent("World").get_node("Regions").get_children()
+	var index = 0
+	for region in regions:
+		if index == regionId:
+			name = region.region_name
+		index += 1
+	
+	var shipperManager = get_single_job("Shipper to " + name, parent)
+	potatoDrivers[regionId] = get_multi_job("Driver to " + name, shipperManager)
 
 func get_layout_sizes(node, height, width, depth):
 	if width.size() <= depth:
