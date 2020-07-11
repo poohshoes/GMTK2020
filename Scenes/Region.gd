@@ -18,8 +18,8 @@ var happiness # Set initial happiness
 var dH # Per-tick change in happiness
 var fees
 var dF # Per-tick change in fees collected
-var imports
-var exports
+var imports = 10
+var exports = 10
 var dS # Per-tick calculation of surplus/deficit potatoes
 var population
 var dP # Per-tick calculation of change in population
