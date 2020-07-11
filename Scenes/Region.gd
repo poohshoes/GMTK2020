@@ -11,6 +11,7 @@ const L = 1.0
 const K = 1.0 # This probably needs to be moved closer to 0.1
 const X0 = 0.0
 
+
 const FARMER_SALARY = 100
 const FEE_COLLECTOR_SALARY = 150
 const WORKER_SALARY = 50
@@ -49,8 +50,13 @@ func _ready():
 func tick(imports, exports):
 	# Get region job data
 	var numWorkers = regionJobs.get_num_workers()
-	var numTaxCollectors = regionJobs.taxCollectors.employee.size()
 	var numPotatoFarmers = regionJobs.potatoFarmers.employee.size()
+	var numTaxCollectors = regionJobs.taxCollectors.employee.size()
+	var numBaristas = regionJobs.baristas.employee.size()
+	var effectiveTaxCollectors = max(0, numTaxCollectors - numBaristas)
+	var numLowSalary = regionJobs.get_num_workers_for_salary(Global.SALARY_LOW)
+	var numMedSalary = regionJobs.get_num_workers_for_salary(Global.SALARY_MED)
+	var numHighSalary = regionJobs.get_num_workers_for_salary(Global.SALARY_HIGH)
 	dM = 0
 	
 	# Update potato production
@@ -68,7 +74,7 @@ func tick(imports, exports):
 	# Collect fees from citizens
 	dM += population * numTaxCollectors * FEE_RATE
 	# Pay salaries
-	dM -= numPotatoFarmers * FARMER_SALARY + numTaxCollectors * FEE_COLLECTOR_SALARY + numWorkers * WORKER_SALARY
+	dM -= numPotatoFarmers * FARMER_SALARY + effectiveTaxCollectors * FEE_COLLECTOR_SALARY + numWorkers * WORKER_SALARY
 	
 	# Calculate happiness
 	dH = FEE_HAPPY_FACTOR * numTaxCollectors + POTATO_HAPPY_FACTOR * (dS / population - 1)

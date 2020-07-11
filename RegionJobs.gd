@@ -12,6 +12,14 @@ var viewport
 var employeePool = []
 var jobs = []
 
+func get_num_workers_for_salary(salaryType):
+	var numWorkers = 0
+	for job in jobs:
+		if job.salaryType == salaryType:
+			numWorkers += job.get_num_workers()
+	return numWorkers
+	
+
 func get_num_workers():
 	var numWorkers = 0
 	for job in jobs:
@@ -49,24 +57,26 @@ func employee_drag_end(employee):
 	if !employee.hasJob:
 		employee.return()
 
-
 var taxCollectors
 var potatoFarmers
 var potatoDrivers = []
+var baristas
 func setup(regionId):	
 	viewport = get_viewport().size;
 	singleJobTemplate = load("res://SingleJob.tscn")
 	multiJobTemplate = load("res://MultiJob.tscn")
 	
-	rootJob = get_single_job("Regional Manager", null)
+	rootJob = get_single_job("Regional Manager", null, Global.SALARY_HIGH)
 	rootJob.unlock()
-	var taxManager = get_multi_job("Tax Bureau Overseer", rootJob)
+	var taxManager = get_multi_job("Tax Bureau Overseer", rootJob, Global.SALARY_MED)
 	taxManager.workersPerManager = 2
-	taxCollectors = get_multi_job("Tax Collectors", taxManager)
-	var potatoManager = get_single_job("Farm Safety Associate", rootJob)
-	var potatoManager2 = get_multi_job("Blarb", rootJob)
+	taxCollectors = get_multi_job("Tax Collectors", taxManager, Global.SALARY_LOW)
+	var baristaManager = get_single_job("Coffee Blend Master", rootJob, Global.SALARY_MED)
+	baristas = get_multi_job("Barista", baristaManager, Global.SALARY_LOW)
+	var potatoManager = get_single_job("Farm Safety Associate", rootJob, Global.SALARY_MED)
+	var potatoManager2 = get_multi_job("Blarb", rootJob, Global.SALARY_MED)
 	potatoManager2.workersPerManager = 2
-	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager)
+	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager, Global.SALARY_LOW)
 	extra_parent(potatoFarmers, potatoManager2)
 	
 	for i in range(5):
@@ -136,8 +146,8 @@ func setup_shipper(regionId, parent):
 			name = region.region_name
 		index += 1
 	
-	var shipperManager = get_single_job("Shipper to " + name, parent)
-	potatoDrivers[regionId] = get_multi_job("Driver to " + name, shipperManager)
+	var shipperManager = get_single_job("Shipper to " + name, parent, Global.SALARY_MED)
+	potatoDrivers[regionId] = get_multi_job("Driver to " + name, shipperManager, Global.SALARY_LOW)
 
 func get_layout_sizes(node, height, width, depth):
 	if width.size() <= depth:
@@ -168,8 +178,8 @@ func layout_lines(node):
 	
 		var line = Line2D.new()
 		line.set_name("line")
-		node.move_child(node, 0)
 		node.add_child(line)
+		node.move_child(line, 0)
 		node.lines.append(line)
 		line.add_point(Vector2(0, 0))
 		line.add_point(lineOffset)
@@ -203,18 +213,19 @@ func layout2(node):
 		layout2(child)
 
 
-func get_single_job(labelText, parent):
+func get_single_job(labelText, parent, salaryType):
 	var result = singleJobTemplate.instance()
-	setup_job(labelText, parent, result)
+	setup_job(labelText, parent, result, salaryType)
 	return result
 
-func get_multi_job(labelText, parent):
+func get_multi_job(labelText, parent, salaryType):
 	var result = multiJobTemplate.instance()
-	setup_job(labelText, parent, result)
+	setup_job(labelText, parent, result, salaryType)
 	return result
 
 
-func setup_job(labelText, parent, child):
+func setup_job(labelText, parent, child, salaryType):
+	child.salaryType = salaryType
 	add_child(child)
 	jobs.append(child)
 	child.set_title(labelText)

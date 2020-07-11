@@ -3,6 +3,8 @@ extends Node2D
 export(int) var width;
 export(int) var height;
 
+var salaryType
+
 var parents = []
 var lines = []
 var children = []
