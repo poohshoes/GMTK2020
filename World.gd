@@ -19,6 +19,7 @@ func tick():
 	var potatoesPerDriver = 5
 	var exportsByRegion = []
 	var importsByRegion = []
+# warning-ignore:unused_variable
 	for i in range(5):
 		exportsByRegion.append(0)
 		importsByRegion.append(0)
