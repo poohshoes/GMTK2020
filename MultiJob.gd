@@ -3,17 +3,23 @@ extends Node2D
 export(int) var width;
 export(int) var height;
 
-var parent = null
+var parents = null
 var children = []
 
 var employee = []
 
 var locked = true
 
+var workersPerManager = 99
+
+var isMultiJob = true
 
 func get_num_workers():
 	return employee.size()
 
+func lock():
+	locked = true
+	$LockSprite.show()
 
 func unlock():
 	locked = false

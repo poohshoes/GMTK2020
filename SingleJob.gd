@@ -3,12 +3,14 @@ extends Node2D
 export(int) var width;
 export(int) var height;
 
-var parent = null
+var parents = null
 var children = []
 
 var employee = null
 
 var locked = true
+
+var isMultiJob = false
 
 func get_num_workers():
 	var numWorkers = 0

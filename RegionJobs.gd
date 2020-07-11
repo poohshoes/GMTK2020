@@ -26,6 +26,11 @@ func employee_drag_end(employee):
 			employee.hasJob = true
 			for childJob in job.children:
 				childJob.unlock()
+			if job.isMultiJob && job.parent != null && job.parent.isMultiJob:
+				var maxWorkers = job.parent.get_num_workers() * job.parent.workersPerManager
+				if job.get_num_workers() >= maxWorkers:
+					job.lock()
+				
 			find_parent('World').tick()
 	if !employee.hasJob:
 		employee.return()
@@ -41,7 +46,8 @@ func setup(regionId):
 	
 	rootJob = get_single_job("Regional Manager", null)
 	rootJob.unlock()
-	var taxManager = get_single_job("Tax Bureau Overseer", rootJob)
+	var taxManager = get_multi_job("Tax Bureau Overseer", rootJob)
+	taxManager.workersPerManager = 2
 	taxCollectors = get_multi_job("Tax Collectors", taxManager)
 	var potatoManager = get_single_job("Farm Safety Associate", rootJob)
 	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager)
@@ -91,7 +97,7 @@ func setup(regionId):
 
 
 	var employeeTemplate = load("res://Employee.tscn")
-	for i in range(5):
+	for i in range(10):
 		var employee = employeeTemplate.instance()
 		add_child(employee)
 		employeePool.append(employee)
@@ -157,7 +163,6 @@ func get_single_job(labelText, parent):
 	var result = singleJobTemplate.instance()
 	setup_job(labelText, parent, result)
 	return result
-
 
 func get_multi_job(labelText, parent):
 	var result = multiJobTemplate.instance()
