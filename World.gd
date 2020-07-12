@@ -161,6 +161,10 @@ func setup_region_jobs(region):
 	regionJobs.append(regionJob)
 	regionJob.setup(region.region_id)
 
+func _process(delta):
+	if !$PlaySound.playing && musicPlaying:
+		$PlaySound.play()
+
 func check_game_state():
 	pass # Check if game is over
 	
@@ -248,6 +252,7 @@ func check_events():
 func show_message(text):
 	$MessagePanel/MarginContainer2/MessageLabel.show_message("Day " + str(action) + ": " + text)
 
+var musicPlaying = true
 func start_music():
 	$PlaySound.play()
 
@@ -257,5 +262,7 @@ func stop_music():
 func _on_SoundButton_pressed():
 	if $SoundButton.pressed == true:
 		$PlaySound.play()
+		musicPlaying = true
 	else:
 		$PlaySound.stop()
+		musicPlaying = false
