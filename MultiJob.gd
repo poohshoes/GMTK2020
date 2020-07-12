@@ -38,6 +38,9 @@ func add_employee(newEmployee):
 	
 func _ready():
 	pass
+	
+func set_tooltip(text):
+	$Background.hint_tooltip = text
 
 func set_title(text):
 	$Title.text = text

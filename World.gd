@@ -4,6 +4,8 @@ var action = 0
 var money = 1000000
 var payroll = 0
 var income
+export var alpha = 0.01 # Coefficient in front of exponent function
+export var beta = 1.4 # Value of exponent
 
 var regionJobs = []
 
@@ -32,6 +34,8 @@ func tick():
 	var potatoesPerDriver = 5
 	var exportsByRegion = []
 	var importsByRegion = []
+	
+	var inevitability = alpha * pow(action, beta)
 # warning-ignore:unused_variable
 	for i in range(5):
 		exportsByRegion.append(0)
@@ -62,7 +66,7 @@ func tick():
 	var regions = $Regions.get_children()
 	for regionIndex in regions.size():
 		var region = regions[regionIndex]
-		income += region.tick(importsByRegion[regionIndex], exportsByRegion[regionIndex])
+		income += region.tick(importsByRegion[regionIndex], exportsByRegion[regionIndex], inevitability)
 	money += income
 	$ResourcesPanel/MarginContainer/HBoxContainer/MoneyLabel.set_money(money)
 	action += 1
@@ -104,6 +108,9 @@ func setup_region_jobs(region):
 func check_game_state():
 	pass # Check if game is over
 	
+var event1 = false
+var event2 = false
+var event3 = false
 var nextEventTick = 0
 func check_events():
 	# Take the tick and see what we can do
@@ -111,12 +118,29 @@ func check_events():
 	
 		var eventFired = false
 	
+		if !eventFired && !event1 && action >= 3:
+			eventFired = true
+			event1 = true
+			show_message("The people grow weary of potatoes...")
+			Global.POTATO_HAPPY_FACTOR -= 0.2
+			
+		if !eventFired && !event2 && action >= 10:
+			eventFired = true
+			event2 = true
+			show_message("A clever comrade has submerged the potatoes in hot oil. Suddenly, spuds are all the rage again!")
+			Global.POTATO_HAPPY_FACTOR += 0.2
+			
+		if !eventFired && !event3 && action >= 50:
+			eventFired = true
+			event3 = true
+			show_message("Your people have realized that the new regime is little better than the old. Unrest grows...")
+			beta += 0.2
+			
 		if !eventFired && money <= 0:
 			for region in $Regions.get_children():
 				region.happiness -= 4
 				region.happiness = max(0, region.happiness)
 			eventFired = true
-			nextEventTick = action + 3 + (randi()%3)
 			show_message("Inablility of the Central happiness committee to pay salaries causes widespread sadness :`(")
 	
 		var unhappyRegions = []
@@ -146,6 +170,10 @@ func check_events():
 			
 			nextEventTick = action + 3 + (randi()%3)
 			show_message("Riots in " + region.region_name + " spill over into " + randNeighbour.region_name + " :(")
+			
+		if eventFired:
+			nextEventTick = action + 2 + (randi()%4)
+			
 
 func show_message(text):
 	$MessagePanel/MarginContainer2/MessageLabel.show_message("Day " + str(action) + ": " + text)

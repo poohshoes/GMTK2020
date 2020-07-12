@@ -1,5 +1,15 @@
 extends Node
 
-const SALARY_LOW = 0
-const SALARY_MED = 1
-const SALARY_HIGH = 2
+const MAX_HAPPINESS = 100
+
+const SALARY_LOW = 1000
+const SALARY_MED = 2000
+const SALARY_HIGH = 5000
+
+# Region parameters
+var FEE_HAPPY_FACTOR = -2.5
+var POTATO_HAPPY_FACTOR = 10
+var POTATO_BUY_PRICE = 15
+var POTATO_SELL_PRICE = 10
+var POTATO_EXT_PRICE = 3 * POTATO_BUY_PRICE
+var FEE_RATE = 0.2

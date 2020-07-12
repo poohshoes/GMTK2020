@@ -69,51 +69,62 @@ func setup(regionId):
 	
 	rootJob = get_single_job("Regional Manager", null, Global.SALARY_HIGH)
 	rootJob.unlock()
-	var taxManager = get_multi_job("Tax Bureau Overseer", rootJob, Global.SALARY_MED)
+	
+	var assistant = get_single_job("Assistant to the Regional Manager", rootJob, Global.SALARY_LOW)
+	var taxManager = get_multi_job("Tax Bureau Overseer", assistant, Global.SALARY_MED)
 	taxManager.workersPerManager = 2
+	taxManager.set_tooltip("Each Overseer can support up to 2 Tax Collectors")
 	taxCollectors = get_multi_job("Tax Collectors", taxManager, Global.SALARY_LOW)
-	var baristaManager = get_single_job("Coffee Blend Master", rootJob, Global.SALARY_MED)
+	taxCollectors.set_tooltip("Increase income but decrease happiness")
+	var baristaManager = get_single_job("Coffee Blend Master", assistant, Global.SALARY_MED)
 	baristas = get_multi_job("Barista", baristaManager, Global.SALARY_LOW)
-	var potatoManager = get_single_job("Farm Safety Associate", rootJob, Global.SALARY_MED)
-	var potatoManager2 = get_multi_job("Blarb", rootJob, Global.SALARY_MED)
-	potatoManager2.workersPerManager = 2
+	baristas.set_tooltip("Make Tax Collectors less effective")
+	
+	var supervisor = get_single_job("Potato Production Supervisor", rootJob, Global.SALARY_MED)
+	var potatoManager = get_single_job("Farm Safety Associate", supervisor, Global.SALARY_MED)
+	var potatoManager2 = get_multi_job("Machinery Overseer", supervisor, Global.SALARY_MED)
+	potatoManager2.workersPerManager = 3
+	potatoManager2.set_tooltip("Each Overseer can support up to 3 Extraction Experts")
 	potatoFarmers = get_multi_job("Potato Extraction Experts", potatoManager, Global.SALARY_LOW)
+	potatoFarmers.set_tooltip("Increase Potato Production")
 	extra_parent(potatoFarmers, potatoManager2)
+	
+	var shippingManager = get_single_job("Comptroller of Shipping", rootJob, Global.SALARY_HIGH)
 	
 	for i in range(5):
 		potatoDrivers.append(null)
 	match regionId:
 		0:
-			setup_shipper(1, rootJob)
-			setup_shipper(2, rootJob)
-			setup_shipper(4, rootJob)
+			setup_shipper(1, shippingManager)
+			setup_shipper(2, shippingManager)
+			setup_shipper(4, shippingManager)
 		1:
-			setup_shipper(0, rootJob)
-			setup_shipper(2, rootJob)
-			setup_shipper(3, rootJob)
+			setup_shipper(0, shippingManager)
+			setup_shipper(2, shippingManager)
+			setup_shipper(3, shippingManager)
 		2:
-			setup_shipper(0, rootJob)
-			setup_shipper(1, rootJob)
-			setup_shipper(3, rootJob)
-			setup_shipper(4, rootJob)
+			setup_shipper(0, shippingManager)
+			setup_shipper(1, shippingManager)
+			setup_shipper(3, shippingManager)
+			setup_shipper(4, shippingManager)
 		3:
-			setup_shipper(1, rootJob)
-			setup_shipper(2, rootJob)
-			setup_shipper(4, rootJob)
+			setup_shipper(1, shippingManager)
+			setup_shipper(2, shippingManager)
+			setup_shipper(4, shippingManager)
 		4:
-			setup_shipper(0, rootJob)
-			setup_shipper(2, rootJob)
-			setup_shipper(3, rootJob)
+			setup_shipper(0, shippingManager)
+			setup_shipper(2, shippingManager)
+			setup_shipper(3, shippingManager)
 	
 	
 	var depthMaxHeight = []
 	var depthWidth = []
 	get_layout_sizes(rootJob, depthMaxHeight, depthWidth, 0)
 	var depthHeight = []
-	var runningHeight = 100
+	var runningHeight = 120
 	for i in range(depthMaxHeight.size()):
 		depthHeight.append(runningHeight)
-		runningHeight += depthMaxHeight[i] + 20
+		runningHeight += depthMaxHeight[i] + 100
 	#var maxWidth = depthWidth.max()
 	var currentDepthWidth = []
 	var graphWidth = viewport.x - $EmployeePool.get_rect().size.x
@@ -151,8 +162,9 @@ func setup_shipper(regionId, parent):
 			name = region.region_name
 		index += 1
 	
-	var shipperManager = get_single_job("Shipper to " + name, parent, Global.SALARY_MED)
-	potatoDrivers[regionId] = get_multi_job("Driver to " + name, shipperManager, Global.SALARY_LOW)
+	var shipperManager = get_single_job("Associate for " + name, parent, Global.SALARY_MED)
+	potatoDrivers[regionId] = get_multi_job(name + " route Driver", shipperManager, Global.SALARY_LOW)
+	potatoDrivers[regionId].set_tooltip("Transfer potatoes")
 
 func get_layout_sizes(node, height, width, depth):
 	if width.size() <= depth:
