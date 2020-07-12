@@ -67,7 +67,7 @@ func setup(regionId):
 	singleJobTemplate = load("res://SingleJob.tscn")
 	multiJobTemplate = load("res://MultiJob.tscn")
 	
-	rootJob = get_single_job("Regional Manager", null, Global.SALARY_HIGH)
+	rootJob = get_single_job("Regional Manager of " + get_region_name(regionId), null, Global.SALARY_HIGH)
 	rootJob.unlock()
 	
 	var assistant = get_single_job("Assistant to the Regional Manager", rootJob, Global.SALARY_LOW)
@@ -89,7 +89,7 @@ func setup(regionId):
 	potatoFarmers.set_tooltip("Increase Potato Production")
 	extra_parent(potatoFarmers, potatoManager2)
 	
-	var shippingManager = get_single_job("Comptroller of Shipping", rootJob, Global.SALARY_HIGH)
+	var shippingManager = get_single_job("Comptroller of Exporting", rootJob, Global.SALARY_HIGH)
 	
 	for i in range(5):
 		potatoDrivers.append(null)
@@ -152,18 +152,20 @@ func extra_parent(child, parent):
 	child.parents.append(parent)
 	parent.children.append(child)
 
-func setup_shipper(regionId, parent):
+func get_region_name(regionId):
 	var name = "NAME NOT FOUND"
-	
 	var regions = find_parent("World").get_node("Regions").get_children()
 	var index = 0
 	for region in regions:
 		if index == regionId:
 			name = region.region_name
 		index += 1
-	
+	return name
+
+func setup_shipper(regionId, parent):
+	var name = get_region_name(regionId)	
 	var shipperManager = get_single_job("Associate for " + name, parent, Global.SALARY_MED)
-	potatoDrivers[regionId] = get_multi_job(name + " route Driver", shipperManager, Global.SALARY_LOW)
+	potatoDrivers[regionId] = get_multi_job("Driver to " + name, shipperManager, Global.SALARY_LOW)
 	potatoDrivers[regionId].set_tooltip("Transfer potatoes")
 
 func get_layout_sizes(node, height, width, depth):

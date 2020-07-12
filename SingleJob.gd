@@ -60,6 +60,11 @@ func under_mouse():
 	var rect = $Background.get_rect()
 	rect.position.x += position.x
 	rect.position.y += position.y
+	var margin = 20
+	rect.position.x -= margin
+	rect.position.y -= margin
+	rect.size.x += 2 * margin
+	rect.size.y += 2 * margin
 	return rect.has_point(mouse)
 	
 #func _on_Background_mouse_entered():
