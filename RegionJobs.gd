@@ -47,6 +47,7 @@ func employee_drag_end(employee):
 		if !employee.hasJob && job.under_mouse() && job.can_add_employee():
 			job.add_employee(employee)
 			employee.hasJob = true
+			spawn_employee()
 			for childJob in job.children:
 				check_lock(childJob)
 				#childJob.unlock()
@@ -109,7 +110,7 @@ func setup(regionId):
 	var depthWidth = []
 	get_layout_sizes(rootJob, depthMaxHeight, depthWidth, 0)
 	var depthHeight = []
-	var runningHeight = 20
+	var runningHeight = 100
 	for i in range(depthMaxHeight.size()):
 		depthHeight.append(runningHeight)
 		runningHeight += depthMaxHeight[i] + 20
@@ -123,14 +124,18 @@ func setup(regionId):
 	layout_lines(rootJob)
 
 
-	var employeeTemplate = load("res://Employee.tscn")
-	for i in range(10):
-		var employee = employeeTemplate.instance()
-		add_child(employee)
-		employeePool.append(employee)
-		employee.position.x = $EmployeePool.rect_position.x + (randi()%int($EmployeePool.rect_size.x))
-		employee.position.y = $EmployeePool.rect_position.y + (randi()%int($EmployeePool.rect_size.y))
-		employee.connect("drag_end", self, "employee_drag_end")
+	employeeTemplate = load("res://Employee.tscn")
+	for i in range(5):
+		spawn_employee()
+
+var employeeTemplate
+func spawn_employee():
+	var employee = employeeTemplate.instance()
+	add_child(employee)
+	employeePool.append(employee)
+	employee.position.x = $EmployeePool.rect_position.x + (randi()%int($EmployeePool.rect_size.x))
+	employee.position.y = $EmployeePool.rect_position.y + (randi()%int($EmployeePool.rect_size.y))
+	employee.connect("drag_end", self, "employee_drag_end")
 
 func extra_parent(child, parent):
 	child.parents.append(parent)

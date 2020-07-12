@@ -13,11 +13,21 @@ func _ready():
 		setup_region_jobs(region)
 	
 	self.move_child($ResourcesPanel, get_child_count())
+	self.move_child($MessagePanel, get_child_count())
 	
 	tick()
 	
 		
 func tick():
+	
+	var numFailedRegions = 0
+	for region in $Regions.get_children():
+		if region.happiness < 1:
+			numFailedRegions += 1
+	if numFailedRegions >= 3:
+		get_tree().change_scene("res://EndGame.tscn")
+	
+	
 	# Start with a bunch of regional stuff (see region code)
 	var potatoesPerDriver = 5
 	var exportsByRegion = []
@@ -47,6 +57,7 @@ func tick():
 	# Check game state
 	# Introduce events for next action(s)
 	
+	
 	income = 0 
 	var regions = $Regions.get_children()
 	for regionIndex in regions.size():
@@ -57,6 +68,10 @@ func tick():
 	action += 1
 	$ResourcesPanel/MarginContainer/HBoxContainer/TurnLabel.set_tick(action)
 	check_events()
+	
+	for regionIndex in regions.size():
+		regions[regionIndex].update_gui(importsByRegion[regionIndex], exportsByRegion[regionIndex])
+	
 
 
 func update_arrow(myRegion, otherRegion, arrow):
@@ -89,13 +104,48 @@ func setup_region_jobs(region):
 func check_game_state():
 	pass # Check if game is over
 	
+var nextEventTick = 0
 func check_events():
 	# Take the tick and see what we can do
-	if action == 2:
-		show_message("A wild event appeared! Wow! You're bananas")
+	if action >= nextEventTick:
 	
-	if action == 3:
-		show_message("You're so screwed")
+		var eventFired = false
+	
+		if !eventFired && money <= 0:
+			for region in $Regions.get_children():
+				region.happiness -= 4
+				region.happiness = max(0, region.happiness)
+			eventFired = true
+			nextEventTick = action + 3 + (randi()%3)
+			show_message("Inablility of the Central happiness committee to pay salaries causes widespread sadness :`(")
+	
+		var unhappyRegions = []
+		var regions = $Regions.get_children()
+		for region in regions:
+			if region.happiness < 5:
+				unhappyRegions.append(region)
+		
+		if !eventFired && unhappyRegions.size() > 0:
+			var region = unhappyRegions[randi()%unhappyRegions.size()]
+			var neighbours
+			match region.region_id:
+				0:
+					neighbours = [1, 2, 4]
+				1:
+					neighbours = [0, 2, 3]
+				2:
+					neighbours = [0, 1, 3, 4]
+				3:
+					neighbours = [1, 2, 4]
+				4:
+					neighbours = [0, 2, 3]
+			var randNeighbourIndex = neighbours[randi()%neighbours.size()]
+			var randNeighbour = regions[randNeighbourIndex]
+			randNeighbour.happiness -= 10
+			randNeighbour.happiness = max(0, randNeighbour.happiness)
+			
+			nextEventTick = action + 3 + (randi()%3)
+			show_message("Riots in " + region.region_name + " spill over into " + randNeighbour.region_name + " :(")
 
 func show_message(text):
-	$MessagePanel/MarginContainer2/MessageLabel.show_message(text)
+	$MessagePanel/MarginContainer2/MessageLabel.show_message("Day " + str(action) + ": " + text)

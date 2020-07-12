@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://images/cross.png" type="Texture" id=1]
+[ext_resource path="res://EndGame.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Font/10CESRG_.TTF"
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = SubResource( 1 )
+
+[node name="EndGame" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1986.0
+margin_bottom = 1114.0
+color = Color( 0.266667, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 482.898
+margin_top = 270.418
+margin_right = 1446.9
+margin_bottom = 870.418
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 963.0
+margin_bottom = 366.0
+custom_fonts/font = SubResource( 2 )
+text = "your scalloped potatoes sit cold on the desk as you sweat profusely, head in your hands as you stare down at the reports of massive unrest in controvia.  Hearing commotion outside in the hallway you look up. the door bursts open and the chairmain of the happyness committee bursts in.  Expecting more bad news you close your eyes for just a moment of respite.  The chairman raises his arm but instead of a note he is holding a gun."
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 370.0
+margin_right = 963.0
+margin_bottom = 470.0
+alignment = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+margin_left = 863.0
+margin_right = 963.0
+margin_bottom = 100.0
+size_flags_horizontal = 0
+texture_normal = ExtResource( 1 )
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]

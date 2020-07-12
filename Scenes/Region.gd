@@ -90,17 +90,28 @@ func tick(imports, exports):
 	dH = (0.5 - dH) * 10
 	
 	happiness = max(0, min(MAX_HAPPINESS, happiness + dH))
+	
+	# Reconcile with national treasury (surplus/deficit)
+	return dM
+	
+func update_gui(imports, exports):
 	$RegionButton/LabelList/PopulationLabel.text = "Population: " + str(population)
-	$RegionButton/LabelList/FertilityLabel.text = "Fertility: " + str(int(fertility * 100))
-	$RegionButton/LabelList/HappinessLabel.set_happiness(round(happiness))
+	var fertilityText
+	if fertility < 0.5:
+		fertilityText = "Barren"
+	elif fertility < 0.8:
+		fertilityText = "Average"
+	elif fertility < 1.5:
+		fertilityText = "Fertile"
+	else:
+		fertilityText = "Cornucopia"
+	$RegionButton/LabelList/FertilityLabel.text = "Fertility: " + fertilityText #str(int(fertility * 100))
+	$RegionButton/LabelList/HappinessLabel.set_happiness(str(round(happiness)) + "/100")
 	$RegionButton/LabelList/HappinessChangeLabel.set_happiness_change(dH)
 	$RegionButton/LabelList/PotatoesLabel.set_potatoes(dS)
 	$RegionButton/LabelList/MoneyLabel.set_money_change(dM)
 	$RegionButton/LabelList/ImportsLabel.set_imports(imports)
 	$RegionButton/LabelList/ExportsLabel.set_exports(exports)
-	
-	# Reconcile with national treasury (surplus/deficit)
-	return dM
 
 
 func _on_RegionButton_pressed():
