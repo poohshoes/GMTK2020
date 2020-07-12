@@ -122,6 +122,7 @@ margin_bottom = 42.0
 texture = ExtResource( 13 )
 
 [node name="HappinessLabel" type="Label" parent="LabelList"]
+visible = false
 margin_top = 146.0
 margin_right = 246.0
 margin_bottom = 160.0
@@ -133,9 +134,10 @@ __meta__ = {
 }
 
 [node name="HappinessChangeLabel" type="Label" parent="LabelList"]
-margin_top = 164.0
+visible = false
+margin_top = 146.0
 margin_right = 246.0
-margin_bottom = 178.0
+margin_bottom = 160.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "dH Label"
 script = ExtResource( 5 )
@@ -144,9 +146,10 @@ __meta__ = {
 }
 
 [node name="PotatoesLabel" type="Label" parent="LabelList"]
-margin_top = 182.0
+visible = false
+margin_top = 146.0
 margin_right = 246.0
-margin_bottom = 196.0
+margin_bottom = 160.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "potato label"
 script = ExtResource( 4 )
@@ -155,9 +158,10 @@ __meta__ = {
 }
 
 [node name="MoneyLabel" type="Label" parent="LabelList"]
-margin_top = 200.0
+visible = false
+margin_top = 146.0
 margin_right = 246.0
-margin_bottom = 214.0
+margin_bottom = 160.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Money Label"
 script = ExtResource( 6 )
@@ -166,9 +170,10 @@ __meta__ = {
 }
 
 [node name="ImportsLabel" type="Label" parent="LabelList"]
-margin_top = 218.0
+visible = false
+margin_top = 146.0
 margin_right = 246.0
-margin_bottom = 232.0
+margin_bottom = 160.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ImportsLabel"
 script = ExtResource( 7 )
@@ -177,9 +182,10 @@ __meta__ = {
 }
 
 [node name="ExportsLabel" type="Label" parent="LabelList"]
-margin_top = 236.0
+visible = false
+margin_top = 146.0
 margin_right = 246.0
-margin_bottom = 250.0
+margin_bottom = 160.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ExportsLabel"
 script = ExtResource( 8 )
