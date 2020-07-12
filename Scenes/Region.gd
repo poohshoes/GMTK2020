@@ -76,7 +76,7 @@ func tick(imports, exports, inevitability):
 		# Buy imports
 		dM += Global.POTATO_SELL_PRICE * exports - Global.POTATO_BUY_PRICE * imports
 	# Collect fees from citizens
-	dM += population * numTaxCollectors * Global.FEE_RATE
+	dM += population * effectiveTaxCollectors * Global.FEE_RATE
 	# Pay salaries
 	dM -= numLowSalary * Global.SALARY_LOW + numMedSalary * Global.SALARY_MED + numHighSalary * Global.SALARY_HIGH
 	

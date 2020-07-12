@@ -71,14 +71,14 @@ func setup(regionId):
 	rootJob.unlock()
 	
 	var assistant = get_single_job("Assistant to the Regional Manager", rootJob, Global.SALARY_LOW)
-	var taxManager = get_multi_job("Tax Bureau Overseer", assistant, Global.SALARY_MED)
+	var taxManager = get_multi_job("Party Membership Overseer", assistant, Global.SALARY_MED)
 	taxManager.workersPerManager = 2
-	taxManager.set_tooltip("Each Overseer can support up to 2 Tax Collectors")
-	taxCollectors = get_multi_job("Tax Collectors", taxManager, Global.SALARY_LOW)
+	taxManager.set_tooltip("Each Overseer can support up to 2 Fee Collectors")
+	taxCollectors = get_multi_job("Membership Fee Collectors", taxManager, Global.SALARY_LOW)
 	taxCollectors.set_tooltip("Increase income but decrease happiness")
 	var baristaManager = get_single_job("Coffee Blend Master", assistant, Global.SALARY_MED)
 	baristas = get_multi_job("Barista", baristaManager, Global.SALARY_LOW)
-	baristas.set_tooltip("Make Tax Collectors less effective")
+	baristas.set_tooltip("Make Fee Collectors less effective")
 	
 	var supervisor = get_single_job("Potato Production Supervisor", rootJob, Global.SALARY_MED)
 	var potatoManager = get_single_job("Farm Safety Associate", supervisor, Global.SALARY_MED)

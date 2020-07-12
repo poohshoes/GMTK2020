@@ -206,7 +206,7 @@ func check_events():
 			
 		if !eventFired && money <= 0:
 			for region in $Regions.get_children():
-				region.happiness -= 3
+				region.happiness -= 4
 				region.happiness = max(0, region.happiness)
 			eventFired = true
 			eventDelay = 2
@@ -234,7 +234,7 @@ func check_events():
 					neighbours = [0, 2, 3]
 			var randNeighbourIndex = neighbours[randi()%neighbours.size()]
 			var randNeighbour = regions[randNeighbourIndex]
-			randNeighbour.happiness -= 5
+			randNeighbour.happiness -= 10
 			randNeighbour.happiness = max(0, randNeighbour.happiness)
 			eventDelay = 3
 			eventFired = true
