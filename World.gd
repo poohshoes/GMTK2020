@@ -18,6 +18,7 @@ func _ready():
 	self.move_child($MessagePanel, get_child_count())
 	
 	tick()
+	start_music()
 	
 		
 func tick():
@@ -177,3 +178,18 @@ func check_events():
 
 func show_message(text):
 	$MessagePanel/MarginContainer2/MessageLabel.show_message("Day " + str(action) + ": " + text)
+
+func start_music():
+	$PlaySound.play()
+
+func stop_music():
+	$PlaySound.stop()
+	
+
+
+
+func _on_SoundButton_pressed():
+	if $SoundButton.pressed == true:
+		$PlaySound.play()
+	else:
+		$PlaySound.stop()
