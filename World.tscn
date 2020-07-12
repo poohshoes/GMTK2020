@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Resources/WorldMap2.png" type="Texture" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
@@ -12,9 +12,11 @@
 [ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
 [ext_resource path="res://MessageLabel.gd" type="Script" id=11]
 [ext_resource path="res://Arrow.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Resources/CHCPlaytime.wav" type="AudioStream" id=13]
+[ext_resource path="res://Resources/musicOn.png" type="Texture" id=14]
 
 [sub_resource type="DynamicFont" id=1]
-size = 32
+size = 20
 font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFontData" id=2]
@@ -79,9 +81,9 @@ texture = ExtResource( 7 )
 
 [node name="TurnLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
 margin_left = 36.0
-margin_top = 1.0
-margin_right = 156.0
-margin_bottom = 39.0
+margin_top = 8.0
+margin_right = 110.0
+margin_bottom = 32.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Turn: 0"
@@ -91,15 +93,15 @@ __meta__ = {
 }
 
 [node name="MoneyIcon" type="TextureRect" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 160.0
-margin_right = 192.0
+margin_left = 114.0
+margin_right = 146.0
 margin_bottom = 41.0
 texture = ExtResource( 8 )
 
 [node name="MoneyLabel" type="Label" parent="ResourcesPanel/MarginContainer/HBoxContainer"]
-margin_left = 196.0
+margin_left = 150.0
 margin_top = 1.0
-margin_right = 358.0
+margin_right = 312.0
 margin_bottom = 39.0
 custom_fonts/font = SubResource( 3 )
 text = "Money: 10"
@@ -126,9 +128,9 @@ margin_bottom = 95.0
 size_flags_horizontal = 3
 
 [node name="MessageLabel" type="Label" parent="MessagePanel/MarginContainer2"]
-margin_top = 25.0
+margin_top = 32.0
 margin_right = 1221.0
-margin_bottom = 63.0
+margin_bottom = 56.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Day 1: Glory to controvia and the central happiness committee!"
@@ -284,4 +286,20 @@ position = Vector2( 1013.67, 329.631 )
 [node name="ArrowDE" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1222.66, 544.901 )
 rotation = -0.507891
+
+[node name="PlaySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = 0.8
+
+[node name="SoundButton" type="CheckButton" parent="."]
+margin_left = 1774.29
+margin_top = 21.8633
+margin_right = 1900.29
+margin_bottom = 79.8633
+pressed = true
+icon = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="WelcomePanel/VBoxContainer/HBoxContainer/CloseIntroButton" to="WelcomePanel" method="_on_CloseIntroButton_pressed"]
+[connection signal="pressed" from="SoundButton" to="." method="_on_SoundButton_pressed"]
