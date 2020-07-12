@@ -19,7 +19,7 @@ func _ready():
 	
 	tick()
 	
-		
+
 func tick():
 	
 	var numFailedRegions = 0
@@ -111,6 +111,7 @@ func check_game_state():
 var event1 = false
 var event2 = false
 var event3 = false
+var event4 = false
 var nextEventTick = 0
 func check_events():
 	# Take the tick and see what we can do
@@ -136,6 +137,11 @@ func check_events():
 			show_message("Your people have realized that the new regime is little better than the old. Unrest grows...")
 			beta += 0.2
 			
+		if !eventFired && !event4 && action >= 15:
+			eventFired = true
+			event4 = true
+				
+		
 		if !eventFired && money <= 0:
 			for region in $Regions.get_children():
 				region.happiness -= 4
