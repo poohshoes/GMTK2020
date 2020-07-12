@@ -157,33 +157,37 @@ __meta__ = {
 position = Vector2( 570.686, 320.528 )
 region_name = "Superpotamia"
 region_id = 0
-starting_population = 50
-fertility = 3.0
+starting_happiness = 70
+fertility = 2.0
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 511.457, 748.472 )
 region_name = "Gibbinz"
 region_id = 1
 starting_population = 65
+starting_happiness = 50
 
 [node name="RegionC" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 891.484, 487.218 )
 region_name = "Galbarta"
 region_id = 2
 starting_population = 80
+starting_happiness = 40
 
 [node name="RegionD" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1182.03, 725.381 )
 region_name = "SE Economic Region"
 region_id = 3
-starting_population = 250
-fertility = 0.2
+starting_population = 150
+starting_happiness = 40
+fertility = 0.7
 
 [node name="RegionE" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1237.8, 338.496 )
 region_name = "Farlandia"
 region_id = 4
 starting_population = 120
+starting_happiness = 40
 fertility = 0.7
 
 [node name="EndTurnButton" type="Button" parent="."]
@@ -289,7 +293,7 @@ rotation = -0.507891
 
 [node name="PlaySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
-volume_db = 0.8
+volume_db = 0.5
 
 [node name="SoundButton" type="CheckButton" parent="."]
 margin_left = 1774.29
