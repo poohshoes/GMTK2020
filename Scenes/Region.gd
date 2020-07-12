@@ -1,15 +1,15 @@
 extends Node
 
 
-const L = 10.0
-const K = 0.05 # This probably needs to be moved closer to 0.1
-const X0 = 0.0
+const L = 2
+const K = 0.02 # This probably needs to be moved closer to 0.1
+const X0 = 1.0
 
 # Used for diminishing happiness returns
-const PHA = -3.0
-const PHB = 0.5
+const PHA = -51
+const PHB = 0.02
 const PHC = 1.0
-const PHD = 3.0
+const PHD = -1* PHA / PHC
 
 
 export var region_name = "[Name]"
@@ -85,11 +85,11 @@ func tick(imports, exports, inevitability):
 	
 	print("{region} potato happiness: {pH}".format({'region': region_name, 'pH': potato_happiness()}))
 	print("{region} dH: {dH}".format({'region': region_name, 'dH': dH}))
-	print(Global.FEE_HAPPY_FACTOR * effectiveTaxCollectors)
+#	print(Global.FEE_HAPPY_FACTOR * effectiveTaxCollectors)
 	# print(dS/population)
 	# Apply a normalization to make it harder to succeed
-	dH = L/(1+exp(-K * (X0 - dH)))
-	print(dH)
+	dH = dH * (L/(1+exp(K * (dH - X0))))
+	print("{region} Normalized dH: {dH}".format({'region': region_name, 'dH': dH}))
 	#Note(ian): I didn't know how to tweak the formula to get this out.
 #	dH = (0.5 - dH) * 10
 	happiness = max(0, min(Global.MAX_HAPPINESS, happiness + dH))
@@ -122,9 +122,12 @@ func update_gui(imports, exports):
 	else:
 		$RegionButton.set_happiness(6)
 	
-	$RegionButton/LabelList/Happy/Arrow.flip_v = dH < 0
-	var happyScale = abs(dH) / 10.0
-	$RegionButton/LabelList/Happy/Arrow.rect_scale = Vector2(happyScale, happyScale)
+	$RegionButton/LabelList/Happy/ArrowContainer/Arrow.flip_v = dH < 0
+	var happyScale = min(max(0.25, abs(dH) / 10.0), 2)
+	$RegionButton/LabelList/Happy/ArrowContainer/Arrow.rect_scale = Vector2(happyScale, happyScale)
+	
+	var spudScale = min(max(0.15, abs((dS/population))), 1.5)
+	$RegionButton/LabelList/Spuds/Potato.rect_scale = Vector2(spudScale, spudScale)
 	
 	$RegionButton/LabelList/HappinessLabel.set_happiness(str(round(happiness)) + "/100")
 	$RegionButton/LabelList/HappinessChangeLabel.set_happiness_change(dH)
@@ -141,5 +144,6 @@ func collect_fees():
 	pass
 
 func potato_happiness(): # Can tweak the function this way easier.
-	return Global.POTATO_HAPPY_FACTOR * ((PHA / (PHB * (dS/population) + PHC)) + PHD)
+	var x = (dS/population) - 1
+	return Global.POTATO_HAPPY_FACTOR * ((PHA / (PHB * (x) + PHC)) + PHD)
 	

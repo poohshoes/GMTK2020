@@ -38,11 +38,12 @@ func tick():
 	
 	
 	# Start with a bunch of regional stuff (see region code)
-	var potatoesPerDriver = 5
+	var potatoesPerDriver = 20
 	var exportsByRegion = []
 	var importsByRegion = []
 	
-	var inevitability = alpha * pow(action, beta)
+	var inevitability = alpha * pow(action, beta) + 1
+	print("Inevitability: " + str(inevitability))
 # warning-ignore:unused_variable
 	var event1 = []
 	var event2 = []
