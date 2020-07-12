@@ -34,11 +34,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HappinessLabel" type="Label" parent="."]
-margin_left = 13.5075
-margin_top = 108.319
-margin_right = 113.507
-margin_bottom = 122.319
+[node name="LabelList" type="VBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_right = 100.0
+margin_bottom = 122.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopulationLabel" type="Label" parent="LabelList"]
+margin_right = 103.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "population label"
+
+[node name="FertilityLabel" type="Label" parent="LabelList"]
+margin_top = 18.0
+margin_right = 103.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "fertility label"
+
+[node name="HappinessLabel" type="Label" parent="LabelList"]
+margin_top = 36.0
+margin_right = 103.0
+margin_bottom = 50.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "happiness label"
 script = ExtResource( 3 )
@@ -46,11 +67,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HappinessChangeLabel" type="Label" parent="."]
-margin_left = 119.347
-margin_top = 107.724
-margin_right = 219.347
-margin_bottom = 121.724
+[node name="HappinessChangeLabel" type="Label" parent="LabelList"]
+margin_top = 54.0
+margin_right = 103.0
+margin_bottom = 68.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "dH Label"
 script = ExtResource( 5 )
@@ -58,11 +78,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PotatoesLabel" type="Label" parent="."]
-margin_left = 18.6497
-margin_top = 123.243
-margin_right = 94.6497
-margin_bottom = 137.243
+[node name="PotatoesLabel" type="Label" parent="LabelList"]
+margin_top = 72.0
+margin_right = 103.0
+margin_bottom = 86.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "potato label"
 script = ExtResource( 4 )
@@ -70,11 +89,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MoneyLabel" type="Label" parent="."]
-margin_left = 18.6497
-margin_top = 139.0
-margin_right = 94.6497
-margin_bottom = 137.243
+[node name="MoneyLabel" type="Label" parent="LabelList"]
+margin_top = 90.0
+margin_right = 103.0
+margin_bottom = 104.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Money Label"
 script = ExtResource( 6 )
@@ -82,11 +100,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ImportsLabel" type="Label" parent="."]
-margin_left = 18.6497
-margin_top = 156.0
-margin_right = 94.6497
-margin_bottom = 137.243
+[node name="ImportsLabel" type="Label" parent="LabelList"]
+margin_top = 108.0
+margin_right = 103.0
+margin_bottom = 122.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ImportsLabel"
 script = ExtResource( 7 )
@@ -94,11 +111,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ExportsLabel" type="Label" parent="."]
-margin_left = 18.6497
-margin_top = 172.0
-margin_right = 94.6497
-margin_bottom = 137.243
+[node name="ExportsLabel" type="Label" parent="LabelList"]
+margin_top = 126.0
+margin_right = 103.0
+margin_bottom = 140.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ExportsLabel"
 script = ExtResource( 8 )

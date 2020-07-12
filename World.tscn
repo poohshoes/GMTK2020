@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Resources/WorldMap2.png" type="Texture" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Font/10CentSoviet32.tres" type="DynamicFontData" id=9]
 [ext_resource path="res://WelcomePanel.gd" type="Script" id=10]
 [ext_resource path="res://MessageLabel.gd" type="Script" id=11]
+[ext_resource path="res://Arrow.tscn" type="PackedScene" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -152,26 +153,34 @@ __meta__ = {
 position = Vector2( 570.686, 320.528 )
 region_name = "Superpotamia"
 region_id = 0
+starting_population = 50
+fertility = 3.0
 
 [node name="RegionB" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 511.457, 748.472 )
 region_name = "Gibbinz"
 region_id = 1
+starting_population = 65
 
 [node name="RegionC" parent="Regions" instance=ExtResource( 4 )]
-position = Vector2( 898.211, 541.035 )
+position = Vector2( 891.484, 487.218 )
 region_name = "Galbarta"
 region_id = 2
+starting_population = 80
 
 [node name="RegionD" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1182.03, 725.381 )
 region_name = "South East Economic Region"
 region_id = 3
+starting_population = 250
+fertility = 0.2
 
 [node name="RegionE" parent="Regions" instance=ExtResource( 4 )]
 position = Vector2( 1237.8, 338.496 )
 region_name = "Farlandia"
 region_id = 4
+starting_population = 120
+fertility = 0.7
 
 [node name="EndTurnButton" type="Button" parent="."]
 margin_left = 70.628
@@ -242,4 +251,35 @@ margin_right = 576.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 6 )
 text = "OK"
+
+[node name="ArrowAB" parent="." instance=ExtResource( 12 )]
+position = Vector2( 541.084, 539.402 )
+rotation = 2.15723
+
+[node name="ArrowAE" parent="." instance=ExtResource( 12 )]
+position = Vector2( 934.623, 223.225 )
+rotation = 0.253073
+
+[node name="ArrowAC" parent="." instance=ExtResource( 12 )]
+position = Vector2( 874.078, 312.311 )
+rotation = 0.925025
+
+[node name="ArrowBD" parent="." instance=ExtResource( 12 )]
+position = Vector2( 800.08, 788.761 )
+rotation = 0.389208
+
+[node name="ArrowBC" parent="." instance=ExtResource( 12 )]
+position = Vector2( 702.536, 511.265 )
+rotation = -0.253073
+
+[node name="ArrowCD" parent="." instance=ExtResource( 12 )]
+position = Vector2( 971.622, 686.172 )
+rotation = 0.888373
+
+[node name="ArrowCE" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1013.67, 329.631 )
+
+[node name="ArrowDE" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1222.66, 544.901 )
+rotation = -0.507891
 [connection signal="pressed" from="WelcomePanel/VBoxContainer/HBoxContainer/CloseIntroButton" to="WelcomePanel" method="_on_CloseIntroButton_pressed"]

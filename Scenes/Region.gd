@@ -20,6 +20,7 @@ export var region_name = "[Name]"
 export var region_id = -1
 export var starting_population = 100
 export var starting_happiness = 20
+export var fertility = 1.0
 
 var happiness # Set initial happiness
 var dH # Per-tick change in happiness
@@ -61,6 +62,11 @@ func tick(imports, exports):
 	
 	# Update potato production
 	dS = population # Start with one potato produced per person
+	var farmerRate = min(1, numPotatoFarmers/20.0)
+	var farmerMultiplier = 1 - pow(1 - farmerRate , 3) # ease out cubic
+	dS *= 1 + (farmerMultiplier * 2)
+	dS *= fertility
+	dS = floor(dS)
 	
 	# Some way to have workers improve potatoes
 	dS += imports - exports # Adjust by net flow
@@ -78,18 +84,20 @@ func tick(imports, exports):
 	
 	# Calculate happiness
 	dH = FEE_HAPPY_FACTOR * numTaxCollectors + POTATO_HAPPY_FACTOR * (dS / population - 1)
-
-	
 	# Apply a normalization to make it harder to succeed
 	dH = L/(1+exp(-K * (X0 - dH)))
+	#Note(ian): I didn't know how to tweak the formula to get this out.
+	dH = (0.5 - dH) * 10
 	
-	happiness = min(MAX_HAPPINESS, happiness + dH)
-	$RegionButton/HappinessLabel.set_happiness(round(happiness))
-	$RegionButton/HappinessChangeLabel.set_happiness_change(dH)
-	$RegionButton/PotatoesLabel.set_potatoes(dS)
-	$RegionButton/MoneyLabel.set_money_change(dM)
-	$RegionButton/ImportsLabel.set_imports(imports)
-	$RegionButton/ExportsLabel.set_exports(exports)
+	happiness = max(0, min(MAX_HAPPINESS, happiness + dH))
+	$RegionButton/LabelList/PopulationLabel.text = "Population: " + str(population)
+	$RegionButton/LabelList/FertilityLabel.text = "Fertility: " + str(int(fertility * 100))
+	$RegionButton/LabelList/HappinessLabel.set_happiness(round(happiness))
+	$RegionButton/LabelList/HappinessChangeLabel.set_happiness_change(dH)
+	$RegionButton/LabelList/PotatoesLabel.set_potatoes(dS)
+	$RegionButton/LabelList/MoneyLabel.set_money_change(dM)
+	$RegionButton/LabelList/ImportsLabel.set_imports(imports)
+	$RegionButton/LabelList/ExportsLabel.set_exports(exports)
 	
 	# Reconcile with national treasury (surplus/deficit)
 	return dM

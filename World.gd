@@ -13,6 +13,9 @@ func _ready():
 		setup_region_jobs(region)
 	
 	self.move_child($ResourcesPanel, get_child_count())
+	
+	tick()
+	
 		
 func tick():
 	# Start with a bunch of regional stuff (see region code)
@@ -32,6 +35,15 @@ func tick():
 				exportsByRegion[regionJobIndex] += numDrivers * potatoesPerDriver
 				importsByRegion[driverIndex] += numDrivers * potatoesPerDriver
 	
+	update_arrow(0, 1, $ArrowAB)
+	update_arrow(0, 2, $ArrowAC)
+	update_arrow(0, 4, $ArrowAE)
+	update_arrow(1, 3, $ArrowBD)
+	update_arrow(1, 2, $ArrowBC)
+	update_arrow(2, 3, $ArrowCD)
+	update_arrow(2, 4, $ArrowCE)
+	update_arrow(3, 4, $ArrowDE)
+	
 	# Check game state
 	# Introduce events for next action(s)
 	
@@ -46,6 +58,24 @@ func tick():
 	$ResourcesPanel/MarginContainer/HBoxContainer/TurnLabel.set_tick(action)
 	check_events()
 
+
+func update_arrow(myRegion, otherRegion, arrow):
+	var exportDrivers = regionJobs[myRegion].potatoDrivers[otherRegion].get_num_workers()
+	var importDrivers = regionJobs[otherRegion].potatoDrivers[myRegion].get_num_workers()
+	var diff = exportDrivers - importDrivers
+	if diff == 0:
+		arrow.hide()
+	else:
+		arrow.show()
+		arrow.show()
+		if diff > 0:
+			arrow.rotation = arrow.startRotation
+		else:
+			arrow.rotation = arrow.startRotation + PI
+		var potatoSprite = arrow.get_node("PotatoSprite")
+		potatoSprite.rotation = -arrow.rotation + (PI / 4.0)
+		var potatoScale = (abs(diff) + 1) / 5.0
+		potatoSprite.scale = Vector2(potatoScale, potatoScale)
 
 func setup_region_jobs(region):
 	var regionJobsTemplate = load("res://RegionJobs.tscn")
