@@ -242,6 +242,7 @@ func check_events():
 			
 		if eventFired:
 			nextEventTick = action + 2 + (randi()%4) + eventDelay
+			$BellEffect.play()
 			
 
 func show_message(text):

@@ -42,7 +42,7 @@ custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Your goal as newly installed leader of Controvia is to bring happiness to the people. Unfortunately, you have little resources to work with as the geopolitical \"misunderstandings\" of your late brother have left your land isolated. He was a more... 'traditional' leader.
 
-Your people are relatively good at creating [color=yellow]potatoes[/color], though, and you have a mighty [color=yellow]culture of beurauracy[/color] to draw on. You can bring happiness to the people by making sure they have enough potatoes to eat, by clicking on a region name and hiring drivers to move potatoes between regions.
+Your people are relatively good at creating [color=yellow]potatoes[/color], though, and you have a mighty [color=yellow]culture of beurauracy[/color] to draw on. You can bring happiness to the people by making sure they have enough potatoes to eat, by clicking on a region name and hiring drivers to drive potatoes to another region.
 
 If you need to raise funds, you can hire [color=yellow]fee collectors[/color] to gather party membership fees. More fee collectors, more money. For some reason that is beyond you, they don't bring the people happiness, though. If you need to slow them down, consider hiring [color=yellow]Baristas[/color]. Fee collectors love coffee.
 
@@ -57,7 +57,7 @@ Good luck!
 "
 text = "Your goal as newly installed leader of Controvia is to bring happiness to the people. Unfortunately, you have little resources to work with as the geopolitical \"misunderstandings\" of your late brother have left your land isolated. He was a more... 'traditional' leader.
 
-Your people are relatively good at creating potatoes, though, and you have a mighty culture of beurauracy to draw on. You can bring happiness to the people by making sure they have enough potatoes to eat, by clicking on a region name and hiring drivers to move potatoes between regions.
+Your people are relatively good at creating potatoes, though, and you have a mighty culture of beurauracy to draw on. You can bring happiness to the people by making sure they have enough potatoes to eat, by clicking on a region name and hiring drivers to drive potatoes to another region.
 
 If you need to raise funds, you can hire fee collectors to gather party membership fees. More fee collectors, more money. For some reason that is beyond you, they don't bring the people happiness, though. If you need to slow them down, consider hiring Baristas. Fee collectors love coffee.
 
