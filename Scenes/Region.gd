@@ -1,20 +1,14 @@
 extends Node
 
-const FEE_HAPPY_FACTOR = -10
-const POTATO_HAPPY_FACTOR = 10
-const POTATO_BUY_PRICE = 15
-const POTATO_SELL_PRICE = 10
-const POTATO_EXT_PRICE = 3 * POTATO_BUY_PRICE
-const MAX_HAPPINESS = 100
-const FEE_RATE = 0.2
-const L = 1.0
-const K = 1.0 # This probably needs to be moved closer to 0.1
+const L = 10.0
+const K = 0.05 # This probably needs to be moved closer to 0.1
 const X0 = 0.0
 
-
-const FARMER_SALARY = 100
-const FEE_COLLECTOR_SALARY = 150
-const WORKER_SALARY = 50
+# Used for diminishing happiness returns
+const PHA = -3.0
+const PHB = 0.5
+const PHC = 1.0
+const PHD = 3.0
 
 export var region_name = "[Name]"
 export var region_id = -1
@@ -48,7 +42,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func tick(imports, exports):
+func tick(imports, exports, inevitability):
 	# Get region job data
 	var numWorkers = regionJobs.get_num_workers()
 	var numPotatoFarmers = regionJobs.potatoFarmers.employee.size()
@@ -58,6 +52,8 @@ func tick(imports, exports):
 	var numLowSalary = regionJobs.get_num_workers_for_salary(Global.SALARY_LOW)
 	var numMedSalary = regionJobs.get_num_workers_for_salary(Global.SALARY_MED)
 	var numHighSalary = regionJobs.get_num_workers_for_salary(Global.SALARY_HIGH)
+	
+	# Calculate the inevitability of time as it ticks
 	dM = 0
 	
 	# Update potato production
@@ -73,23 +69,28 @@ func tick(imports, exports):
 	
 	if dS < 0:
 		# Buy them at a super outrageous price
-		dM += POTATO_EXT_PRICE * dS
+		dM += Global.POTATO_EXT_PRICE * dS
 	else:
 		# Buy imports
-		dM += POTATO_SELL_PRICE * exports - POTATO_BUY_PRICE * imports
+		dM += Global.POTATO_SELL_PRICE * exports - Global.POTATO_BUY_PRICE * imports
 	# Collect fees from citizens
-	dM += population * numTaxCollectors * FEE_RATE
+	dM += population * numTaxCollectors * Global.FEE_RATE
 	# Pay salaries
-	dM -= numPotatoFarmers * FARMER_SALARY + effectiveTaxCollectors * FEE_COLLECTOR_SALARY + numWorkers * WORKER_SALARY
+	dM -= numLowSalary * Global.SALARY_LOW + numMedSalary * Global.SALARY_MED + numHighSalary * Global.SALARY_HIGH
 	
 	# Calculate happiness
-	dH = FEE_HAPPY_FACTOR * numTaxCollectors + POTATO_HAPPY_FACTOR * (dS / population - 1)
+	dH = inevitability * (Global.FEE_HAPPY_FACTOR * effectiveTaxCollectors + potato_happiness())
+	
+	print("{region} potato happiness: {pH}".format({'region': region_name, 'pH': potato_happiness()}))
+	print("{region} dH: {dH}".format({'region': region_name, 'dH': dH}))
+	print(Global.FEE_HAPPY_FACTOR * effectiveTaxCollectors)
+	# print(dS/population)
 	# Apply a normalization to make it harder to succeed
 	dH = L/(1+exp(-K * (X0 - dH)))
+	print(dH)
 	#Note(ian): I didn't know how to tweak the formula to get this out.
-	dH = (0.5 - dH) * 10
-	
-	happiness = max(0, min(MAX_HAPPINESS, happiness + dH))
+#	dH = (0.5 - dH) * 10
+	happiness = max(0, min(Global.MAX_HAPPINESS, happiness + dH))
 	$RegionButton/LabelList/PopulationLabel.text = "Population: " + str(population)
 	$RegionButton/LabelList/FertilityLabel.text = "Fertility: " + str(int(fertility * 100))
 	$RegionButton/LabelList/HappinessLabel.set_happiness(round(happiness))
@@ -108,3 +109,7 @@ func _on_RegionButton_pressed():
 
 func collect_fees():
 	pass
+
+func potato_happiness(): # Can tweak the function this way easier.
+	return Global.POTATO_HAPPY_FACTOR * ((PHA / (PHB * (dS/population) + PHC)) + PHD)
+	

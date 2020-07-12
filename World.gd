@@ -4,6 +4,8 @@ var action = 0
 var money = 1000000
 var payroll = 0
 var income
+export var alpha = 0.01 # Coefficient in front of exponent function
+export var beta = 1.4 # Value of exponent
 
 var regionJobs = []
 
@@ -22,6 +24,8 @@ func tick():
 	var potatoesPerDriver = 5
 	var exportsByRegion = []
 	var importsByRegion = []
+	
+	var inevitability = alpha * pow(action, beta)
 # warning-ignore:unused_variable
 	for i in range(5):
 		exportsByRegion.append(0)
@@ -51,7 +55,7 @@ func tick():
 	var regions = $Regions.get_children()
 	for regionIndex in regions.size():
 		var region = regions[regionIndex]
-		income += region.tick(importsByRegion[regionIndex], exportsByRegion[regionIndex])
+		income += region.tick(importsByRegion[regionIndex], exportsByRegion[regionIndex], inevitability)
 	money += income
 	$ResourcesPanel/MarginContainer/HBoxContainer/MoneyLabel.set_money(money)
 	action += 1
@@ -95,7 +99,16 @@ func check_events():
 		show_message("A wild event appeared! Wow! You're bananas")
 	
 	if action == 3:
-		show_message("You're so screwed")
+		show_message("The people grow weary of potatoes...")
+		Global.POTATO_HAPPY_FACTOR -= 0.2
+	
+	if action == 10:
+		show_message("A clever comrade has submerged the potatoes in hot oil. Suddenly, spuds are all the rage again!")
+		Global.POTATO_HAPPY_FACTOR += 0.2
+	
+	if action == 50:
+		show_message("Your people have realized that the new regime is little better than the old. Unrest grows...")
+		beta += 0.2
 
 func show_message(text):
 	$MessagePanel/MarginContainer2/MessageLabel.show_message(text)
