@@ -49,7 +49,7 @@ __meta__ = {
 }
 
 [node name="PopulationLabel" type="Label" parent="LabelList"]
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 18.0
 custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -57,7 +57,7 @@ text = "population label"
 
 [node name="FertilityLabel" type="Label" parent="LabelList"]
 margin_top = 22.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 40.0
 custom_fonts/font = ExtResource( 11 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -65,7 +65,7 @@ text = "fertility label"
 
 [node name="Happy" type="HBoxContainer" parent="LabelList"]
 margin_top = 44.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 96.0
 
 [node name="Label2" type="Label" parent="LabelList/Happy"]
@@ -104,7 +104,7 @@ stretch_mode = 6
 
 [node name="Spuds" type="HBoxContainer" parent="LabelList"]
 margin_top = 100.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 142.0
 
 [node name="Label3" type="Label" parent="LabelList/Spuds"]
@@ -123,7 +123,7 @@ texture = ExtResource( 13 )
 
 [node name="HappinessLabel" type="Label" parent="LabelList"]
 margin_top = 146.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 160.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "happiness label"
@@ -134,7 +134,7 @@ __meta__ = {
 
 [node name="HappinessChangeLabel" type="Label" parent="LabelList"]
 margin_top = 164.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 178.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "dH Label"
@@ -145,7 +145,7 @@ __meta__ = {
 
 [node name="PotatoesLabel" type="Label" parent="LabelList"]
 margin_top = 182.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 196.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "potato label"
@@ -156,7 +156,7 @@ __meta__ = {
 
 [node name="MoneyLabel" type="Label" parent="LabelList"]
 margin_top = 200.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 214.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Money Label"
@@ -167,7 +167,7 @@ __meta__ = {
 
 [node name="ImportsLabel" type="Label" parent="LabelList"]
 margin_top = 218.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 232.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ImportsLabel"
@@ -178,7 +178,7 @@ __meta__ = {
 
 [node name="ExportsLabel" type="Label" parent="LabelList"]
 margin_top = 236.0
-margin_right = 304.0
+margin_right = 246.0
 margin_bottom = 250.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ExportsLabel"
