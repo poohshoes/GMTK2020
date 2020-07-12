@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Resources/WorldMap2.png" type="Texture" id=1]
 [ext_resource path="res://World.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Arrow.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Resources/CHCPlaytime.wav" type="AudioStream" id=13]
 [ext_resource path="res://Resources/musicOn.png" type="Texture" id=14]
+[ext_resource path="res://Resources/bell.wav" type="AudioStream" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -242,7 +243,10 @@ rotation = -0.507891
 
 [node name="PlaySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 13 )
-volume_db = 0.5
+
+[node name="BellEffect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = -1.0
 
 [node name="SoundButton" type="CheckButton" parent="."]
 margin_left = 1774.29
