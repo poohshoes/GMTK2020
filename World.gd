@@ -185,9 +185,6 @@ func start_music():
 func stop_music():
 	$PlaySound.stop()
 	
-
-
-
 func _on_SoundButton_pressed():
 	if $SoundButton.pressed == true:
 		$PlaySound.play()
